@@ -13,6 +13,8 @@ import org.openxmlformats.schemas.drawingml.x2006.chart.CTStrVal;
 /**
  * @author idobre
  * @since 8/8/16
+ *
+ * Package private class with utility methods. It's based on org.apache.poi.xssf.usermodel.charts.XSSFChartUtil class
  */
 public class XSSFChartUtil {
     private XSSFChartUtil() {}
@@ -83,7 +85,6 @@ public class XSSFChartUtil {
                 ctStrVal.setV(value.toString());
             }
         }
-
     }
 
     private static void fillNumCache(CTNumData cache, ChartDataSource<?> dataSource) {
