@@ -1,0 +1,8 @@
+/.project
+/org.eclipse.m2e.core.prefs
+/.settings/
+/output/
+/target
+/.checkstyle
+*.iml
+.idea
