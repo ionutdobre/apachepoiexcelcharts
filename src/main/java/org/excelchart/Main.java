@@ -56,7 +56,7 @@ public class Main {
 
     private static void createScatterChart() throws IOException {
         Workbook wb = new XSSFWorkbook();
-        Sheet sheet = wb.createSheet("Sheet 1");
+        Sheet sheet = wb.createSheet("scatter");
 
         // Create a row and put some cells in it. Rows are 0 based.
         Row row;
@@ -282,8 +282,6 @@ public class Main {
         wb.write(fileOut);
         fileOut.close();
     }
-
-    // plotArea.addNewDoughnutChart();
 
     private static int getRandomNumberInRange(int min, int max) {
         Random r = new Random();
