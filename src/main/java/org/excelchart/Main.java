@@ -36,7 +36,7 @@ import java.util.Random;
  */
 public class Main {
     static final int NUM_OF_ROWS = 3;
-    static final int NUM_OF_COLUMNS = 20;
+    static final int NUM_OF_COLUMNS = 15;
 
     public static void main(String[] args) {
         System.out.println(">>> start");
@@ -53,10 +53,8 @@ public class Main {
         System.out.println(">>> end");
     }
 
-
-    private static void createScatterChart() throws IOException {
-        Workbook wb = new XSSFWorkbook();
-        Sheet sheet = wb.createSheet("scatter");
+    private static Sheet createSheet(Workbook wb, String sheetName) {
+        Sheet sheet = wb.createSheet(sheetName);
 
         // Create a row and put some cells in it. Rows are 0 based.
         Row row;
@@ -73,6 +71,10 @@ public class Main {
             }
         }
 
+        return sheet;
+    }
+
+    private static Chart createChartAndLegend(Sheet sheet) {
         Drawing drawing = sheet.createDrawingPatriarch();
         ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 5, 15, 20);
 
@@ -80,6 +82,14 @@ public class Main {
         ChartLegend legend = chart.getOrCreateLegend();
         legend.setPosition(LegendPosition.TOP_RIGHT);
 
+        return chart;
+    }
+
+    private static void createScatterChart() throws IOException {
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = createSheet(wb, "scatter");
+
+        Chart chart = createChartAndLegend(sheet);
         ScatterChartData data = chart.getChartDataFactory().createScatterChartData();
 
         ValueAxis bottomAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.BOTTOM);
@@ -103,30 +113,9 @@ public class Main {
 
     private static void createLineChart() throws IOException {
         Workbook wb = new XSSFWorkbook();
-        Sheet sheet = wb.createSheet("linechart");
+        Sheet sheet = createSheet(wb, "linechart");
 
-        // Create a row and put some cells in it. Rows are 0 based.
-        Row row;
-        Cell cell;
-        for (int rowIndex = 0; rowIndex < NUM_OF_ROWS; rowIndex++) {
-            row = sheet.createRow((short) rowIndex);
-            for (int colIndex = 0; colIndex < NUM_OF_COLUMNS; colIndex++) {
-                cell = row.createCell((short) colIndex);
-                if (rowIndex == 0) {
-                    cell.setCellValue(colIndex + 1);
-                } else {
-                    cell.setCellValue(getRandomNumberInRange(1, 10));
-                }
-            }
-        }
-
-        Drawing drawing = sheet.createDrawingPatriarch();
-        ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 5, 15, 20);
-
-        Chart chart = drawing.createChart(anchor);
-        ChartLegend legend = chart.getOrCreateLegend();
-        legend.setPosition(LegendPosition.TOP_RIGHT);
-
+        Chart chart = createChartAndLegend(sheet);
         LineChartData data = chart.getChartDataFactory().createLineChartData();
 
         // Use a category axis for the bottom axis.
@@ -151,30 +140,9 @@ public class Main {
 
     private static void createBarChart() throws IOException {
         Workbook wb = new XSSFWorkbook();
-        Sheet sheet = wb.createSheet("barchart");
+        Sheet sheet = createSheet(wb, "barchart");
 
-        // Create a row and put some cells in it. Rows are 0 based.
-        Row row;
-        Cell cell;
-        for (int rowIndex = 0; rowIndex < NUM_OF_ROWS; rowIndex++) {
-            row = sheet.createRow((short) rowIndex);
-            for (int colIndex = 0; colIndex < NUM_OF_COLUMNS; colIndex++) {
-                cell = row.createCell((short) colIndex);
-                if (rowIndex == 0) {
-                    cell.setCellValue(colIndex + 1);
-                } else {
-                    cell.setCellValue(getRandomNumberInRange(1, 10));
-                }
-            }
-        }
-
-        Drawing drawing = sheet.createDrawingPatriarch();
-        ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 5, 15, 20);
-
-        Chart chart = drawing.createChart(anchor);
-        ChartLegend legend = chart.getOrCreateLegend();
-        legend.setPosition(LegendPosition.TOP_RIGHT);
-
+        Chart chart = createChartAndLegend(sheet);
         BarChartData data = new XSSFBarChartData();
 
         // Use a category axis for the bottom axis.
@@ -199,30 +167,9 @@ public class Main {
 
     private static void createAreaChartChart() throws IOException {
         Workbook wb = new XSSFWorkbook();
-        Sheet sheet = wb.createSheet("areachart");
+        Sheet sheet = createSheet(wb, "areachart");
 
-        // Create a row and put some cells in it. Rows are 0 based.
-        Row row;
-        Cell cell;
-        for (int rowIndex = 0; rowIndex < NUM_OF_ROWS; rowIndex++) {
-            row = sheet.createRow((short) rowIndex);
-            for (int colIndex = 0; colIndex < NUM_OF_COLUMNS; colIndex++) {
-                cell = row.createCell((short) colIndex);
-                if (rowIndex == 0) {
-                    cell.setCellValue(colIndex + 1);
-                } else {
-                    cell.setCellValue(getRandomNumberInRange(1, 10));
-                }
-            }
-        }
-
-        Drawing drawing = sheet.createDrawingPatriarch();
-        ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 5, 15, 20);
-
-        Chart chart = drawing.createChart(anchor);
-        ChartLegend legend = chart.getOrCreateLegend();
-        legend.setPosition(LegendPosition.TOP_RIGHT);
-
+        Chart chart = createChartAndLegend(sheet);
         AreaChartData data = new XSSFAreaChartData();
 
         // Use a category axis for the bottom axis.
@@ -245,30 +192,9 @@ public class Main {
 
     private static void createPieChartChart() throws IOException {
         Workbook wb = new XSSFWorkbook();
-        Sheet sheet = wb.createSheet("piechart");
+        Sheet sheet = createSheet(wb, "piechart");
 
-        // Create a row and put some cells in it. Rows are 0 based.
-        Row row;
-        Cell cell;
-        for (int rowIndex = 0; rowIndex < NUM_OF_ROWS; rowIndex++) {
-            row = sheet.createRow((short) rowIndex);
-            for (int colIndex = 0; colIndex < NUM_OF_COLUMNS - 10; colIndex++) {
-                cell = row.createCell((short) colIndex);
-                if (rowIndex == 0) {
-                    cell.setCellValue(colIndex + 1);
-                } else {
-                    cell.setCellValue(getRandomNumberInRange(1, 10));
-                }
-            }
-        }
-
-        Drawing drawing = sheet.createDrawingPatriarch();
-        ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 5, 15, 20);
-
-        Chart chart = drawing.createChart(anchor);
-        ChartLegend legend = chart.getOrCreateLegend();
-        legend.setPosition(LegendPosition.TOP_RIGHT);
-
+        Chart chart = createChartAndLegend(sheet);
         PieChartData data = new XSSFPieChartData();
 
         ChartDataSource<String> xs = DataSources.fromStringCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
