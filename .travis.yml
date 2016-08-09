@@ -1,0 +1,13 @@
+language: java
+sudo: false
+cache:
+    directories:
+        - $HOME/.m2
+env:
+    global:
+        - MAVEN_OPTS="-XX:MaxMetaspaceSize=256m -Xmx1g"
+        - JAVA_OPTS="-XX:MaxMetaspaceSize=256m -Xmx1g"
+install: mvn install -T 64C -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+script: mvn test -T 64C -B
+jdk:
+    - oraclejdk8
