@@ -239,8 +239,6 @@ public class Main {
         fileOut.close();
     }
 
-    // bubble chart!
-
     private static int getRandomNumberInRange(int min, int max) {
         Random r = new Random();
         return r.ints(min, (max + 1)).findFirst().getAsInt();
