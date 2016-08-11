@@ -25,6 +25,8 @@ import org.excelchart.barchart.BarChartData;
 import org.excelchart.barchart.XSSFBarChartData;
 import org.excelchart.piechart.PieChartData;
 import org.excelchart.piechart.XSSFPieChartData;
+import stackedbarchart.StackedBarChartData;
+import stackedbarchart.XSSFStackedBarChartData;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,8 +37,8 @@ import java.util.Random;
  * @since 8/8/16
  */
 public class Main {
-    static final int NUM_OF_ROWS = 3;
-    static final int NUM_OF_COLUMNS = 15;
+    private static final int NUM_OF_ROWS = 3;
+    private static final int NUM_OF_COLUMNS = 15;
 
     public static void main(String[] args) {
         System.out.println(">>> start");
@@ -45,6 +47,7 @@ public class Main {
             createScatterChart();
             createLineChart();
             createBarChart();
+            createStackedBarChart();
             createAreaChartChart();
             createPieChartChart();
         } catch (IOException e) {
@@ -208,6 +211,35 @@ public class Main {
         wb.write(fileOut);
         fileOut.close();
     }
+
+    private static void createStackedBarChart() throws IOException {
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = createSheet(wb, "stackedbarchart");
+
+        Chart chart = createChartAndLegend(sheet);
+        StackedBarChartData data = new XSSFStackedBarChartData();
+
+        // Use a category axis for the bottom axis.
+        ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
+        ValueAxis leftAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
+        leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
+
+        ChartDataSource<String> xs = DataSources.fromStringCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
+        ChartDataSource<Number> ys1 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1, 1, 0, NUM_OF_COLUMNS - 1));
+        ChartDataSource<Number> ys2 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(2, 2, 0, NUM_OF_COLUMNS - 1));
+
+        data.addSeries(xs, ys1);
+        data.addSeries(xs, ys2);
+
+        chart.plot(data, bottomAxis, leftAxis);
+
+        // Write the output to a file
+        FileOutputStream fileOut = new FileOutputStream("/Users/ionut/Downloads/ooxml-stackedbar-chart.xlsx");
+        wb.write(fileOut);
+        fileOut.close();
+    }
+
+    // bubble chart!
 
     private static int getRandomNumberInRange(int min, int max) {
         Random r = new Random();
