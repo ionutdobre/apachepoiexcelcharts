@@ -27,6 +27,8 @@ import org.excelchart.piechart.PieChartData;
 import org.excelchart.piechart.XSSFPieChartData;
 import org.excelchart.stackedbarchart.StackedBarChartData;
 import org.excelchart.stackedbarchart.XSSFStackedBarChartData;
+import org.excelchart.util.CustomChartDataFactory;
+import org.excelchart.util.CustomChartDataFactoryDefault;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -146,7 +148,8 @@ public class Main {
         Sheet sheet = createSheet(wb, "barchart");
 
         Chart chart = createChartAndLegend(sheet);
-        BarChartData data = new XSSFBarChartData();
+        CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
+        BarChartData data = customChartDataFactory.createBarChartData();
 
         // Use a category axis for the bottom axis.
         ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
@@ -173,7 +176,8 @@ public class Main {
         Sheet sheet = createSheet(wb, "areachart");
 
         Chart chart = createChartAndLegend(sheet);
-        AreaChartData data = new XSSFAreaChartData();
+        CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
+        AreaChartData data = customChartDataFactory.createAreaChartData();
 
         // Use a category axis for the bottom axis.
         ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
@@ -198,7 +202,8 @@ public class Main {
         Sheet sheet = createSheet(wb, "piechart");
 
         Chart chart = createChartAndLegend(sheet);
-        PieChartData data = new XSSFPieChartData();
+        CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
+        PieChartData data = customChartDataFactory.createPieChartData();
 
         ChartDataSource<String> xs = DataSources.fromStringCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
         ChartDataSource<Number> ys1 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1, 1, 0, NUM_OF_COLUMNS - 1));
@@ -217,7 +222,8 @@ public class Main {
         Sheet sheet = createSheet(wb, "stackedbarchart");
 
         Chart chart = createChartAndLegend(sheet);
-        StackedBarChartData data = new XSSFStackedBarChartData();
+        CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
+        StackedBarChartData data = customChartDataFactory.createStackedBarChartData();
 
         // Use a category axis for the bottom axis.
         ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
