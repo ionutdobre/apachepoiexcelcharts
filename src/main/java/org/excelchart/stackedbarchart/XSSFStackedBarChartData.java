@@ -1,4 +1,4 @@
-package stackedbarchart;
+package org.excelchart.stackedbarchart;
 
 import org.apache.poi.ss.usermodel.Chart;
 import org.apache.poi.ss.usermodel.charts.ChartAxis;

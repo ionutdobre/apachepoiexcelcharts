@@ -25,8 +25,8 @@ import org.excelchart.barchart.BarChartData;
 import org.excelchart.barchart.XSSFBarChartData;
 import org.excelchart.piechart.PieChartData;
 import org.excelchart.piechart.XSSFPieChartData;
-import stackedbarchart.StackedBarChartData;
-import stackedbarchart.XSSFStackedBarChartData;
+import org.excelchart.stackedbarchart.StackedBarChartData;
+import org.excelchart.stackedbarchart.XSSFStackedBarChartData;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
