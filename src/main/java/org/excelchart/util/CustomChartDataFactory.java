@@ -1,10 +1,10 @@
 package org.excelchart.util;
 
-import org.apache.poi.ss.usermodel.charts.LineChartData;
-import org.apache.poi.ss.usermodel.charts.ScatterChartData;
 import org.excelchart.areachart.AreaChartData;
 import org.excelchart.barchart.BarChartData;
+import org.excelchart.linechart.LineChartData;
 import org.excelchart.piechart.PieChartData;
+import org.excelchart.scatterchart.ScatterChartData;
 import org.excelchart.stackedbarchart.StackedBarChartData;
 
 /**

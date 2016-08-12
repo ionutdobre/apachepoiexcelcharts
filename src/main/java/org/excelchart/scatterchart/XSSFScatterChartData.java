@@ -20,8 +20,6 @@ package org.excelchart.scatterchart;
 import org.apache.poi.ss.usermodel.Chart;
 import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
-import org.apache.poi.ss.usermodel.charts.ScatterChartData;
-import org.apache.poi.ss.usermodel.charts.ScatterChartSeries;
 import org.apache.poi.xssf.usermodel.XSSFChart;
 import org.apache.poi.xssf.usermodel.charts.AbstractXSSFChartSeries;
 import org.excelchart.util.XSSFChartUtil;

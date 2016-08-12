@@ -24,7 +24,6 @@ import org.apache.poi.util.Beta;
 /**
  * Represents scatter charts series.
  */
-@Beta
 public interface ScatterChartSeries extends ChartSeries {
 
     /**

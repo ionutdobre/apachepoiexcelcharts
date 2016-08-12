@@ -15,7 +15,7 @@
    limitations under the License.
 ==================================================================== */
 
-package org.excelchart.scatterchart;
+package org.excelchart.linechart;
 
 import org.apache.poi.ss.usermodel.charts.ChartData;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
@@ -23,18 +23,19 @@ import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import java.util.List;
 
 /**
- * Data for a Scatter Chart
+ * Data for a Line Chart
  */
-public interface ScatterChartData extends ChartData {
-	/**
-	 * @param xs data source to be used for X axis values
-	 * @param ys data source to be used for Y axis values
-	 * @return a new scatter charts series
-	 */
-	ScatterChartSeries addSerie(ChartDataSource<?> xs, ChartDataSource<? extends Number> ys);
+public interface LineChartData extends ChartData {
 
-	/**
-	 * @return list of all series
-	 */
-	List<? extends ScatterChartSeries> getSeries();
+    /**
+     * @param categories data source for categories.
+     * @param values     data source for values.
+     * @return a new line chart serie.
+     */
+    LineChartSeries addSeries(ChartDataSource<?> categories, ChartDataSource<? extends Number> values);
+
+    /**
+     * @return list of all series.
+     */
+    List<? extends LineChartSeries> getSeries();
 }
