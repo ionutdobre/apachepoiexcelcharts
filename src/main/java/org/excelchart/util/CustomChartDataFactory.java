@@ -1,5 +1,7 @@
 package org.excelchart.util;
 
+import org.apache.poi.ss.usermodel.charts.LineChartData;
+import org.apache.poi.ss.usermodel.charts.ScatterChartData;
 import org.excelchart.areachart.AreaChartData;
 import org.excelchart.barchart.BarChartData;
 import org.excelchart.piechart.PieChartData;
@@ -12,6 +14,16 @@ import org.excelchart.stackedbarchart.StackedBarChartData;
  * A factory for different charts data types (like bar chart, area chart)
  */
 public interface CustomChartDataFactory {
+    /**
+     * @return an appropriate ScatterChartData instance
+     */
+    ScatterChartData createScatterChartData();
+
+    /**
+     * @return a LineChartData instance
+     */
+    LineChartData createLineChartData();
+
     /**
      * @return a AreaChartData instance
      */

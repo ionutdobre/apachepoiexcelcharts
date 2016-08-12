@@ -1,11 +1,15 @@
 package org.excelchart.util;
 
+import org.apache.poi.ss.usermodel.charts.LineChartData;
+import org.apache.poi.ss.usermodel.charts.ScatterChartData;
+import org.apache.poi.xssf.usermodel.charts.XSSFLineChartData;
 import org.excelchart.areachart.AreaChartData;
 import org.excelchart.areachart.XSSFAreaChartData;
 import org.excelchart.barchart.BarChartData;
 import org.excelchart.barchart.XSSFBarChartData;
 import org.excelchart.piechart.PieChartData;
 import org.excelchart.piechart.XSSFPieChartData;
+import org.excelchart.scatterchart.XSSFScatterChartData;
 import org.excelchart.stackedbarchart.StackedBarChartData;
 import org.excelchart.stackedbarchart.XSSFStackedBarChartData;
 
@@ -14,6 +18,20 @@ import org.excelchart.stackedbarchart.XSSFStackedBarChartData;
  * @since 8/11/16
  */
 public class CustomChartDataFactoryDefault implements CustomChartDataFactory {
+    /**
+     * @return new scatter charts data instance
+     */
+    public ScatterChartData createScatterChartData() {
+        return new XSSFScatterChartData();
+    }
+
+    /**
+     * @return new line charts data instance
+     */
+    public LineChartData createLineChartData() {
+        return new XSSFLineChartData();
+    }
+
     /**
      * @return new area charts data instance
      */
