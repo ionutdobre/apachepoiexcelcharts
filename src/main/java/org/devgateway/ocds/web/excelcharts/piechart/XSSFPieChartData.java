@@ -75,7 +75,8 @@ public class XSSFPieChartData implements PieChartData {
             throw new IllegalArgumentException("Value data source must be numeric.");
         }
         int numOfSeries = series.size();
-        XSSFPieChartData.Series newSeries = new XSSFPieChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
+        XSSFPieChartData.Series newSeries =
+                new XSSFPieChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
         series.add(newSeries);
         return newSeries;
     }

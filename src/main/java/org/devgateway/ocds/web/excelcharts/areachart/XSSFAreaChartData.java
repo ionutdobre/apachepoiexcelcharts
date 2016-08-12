@@ -75,7 +75,8 @@ public class XSSFAreaChartData implements AreaChartData {
             throw new IllegalArgumentException("Value data source must be numeric.");
         }
         int numOfSeries = series.size();
-        XSSFAreaChartData.Series newSeries = new XSSFAreaChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
+        XSSFAreaChartData.Series newSeries =
+                new XSSFAreaChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
         series.add(newSeries);
         return newSeries;
     }

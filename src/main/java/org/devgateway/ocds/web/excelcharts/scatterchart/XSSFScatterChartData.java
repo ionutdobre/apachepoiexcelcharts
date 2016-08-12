@@ -137,12 +137,12 @@ public class XSSFScatterChartData implements ScatterChartData {
         rgb.setVal(new byte[]{(byte) 0, (byte) 0, (byte) 0});
 
         CTCatAx[] ctCatAx = plotArea.getCatAxArray();
-        if(ctCatAx.length != 0) {
+        if (ctCatAx.length != 0) {
             ctCatAx[0].addNewMajorGridlines().addNewSpPr().addNewSolidFill().setSrgbClr(rgb);
         }
 
         CTValAx[] ctValAx = plotArea.getValAxArray();
-        if(ctValAx.length != 0) {
+        if (ctValAx.length != 0) {
             ctValAx[0].addNewMajorGridlines().addNewSpPr().addNewSolidFill().setSrgbClr(rgb);
         }
     }

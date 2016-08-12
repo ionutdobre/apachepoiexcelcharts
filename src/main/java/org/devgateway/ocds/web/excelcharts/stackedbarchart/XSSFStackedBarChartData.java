@@ -72,12 +72,14 @@ public class XSSFStackedBarChartData implements StackedBarChartData {
         }
     }
 
-    public StackedBarChartSeries addSeries(ChartDataSource<?> categoryAxisData, ChartDataSource<? extends Number> values) {
+    public StackedBarChartSeries addSeries(ChartDataSource<?> categoryAxisData,
+                                           ChartDataSource<? extends Number> values) {
         if (!values.isNumeric()) {
             throw new IllegalArgumentException("Value data source must be numeric.");
         }
         int numOfSeries = series.size();
-        XSSFStackedBarChartData.Series newSeries = new XSSFStackedBarChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
+        XSSFStackedBarChartData.Series newSeries =
+                new XSSFStackedBarChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
         series.add(newSeries);
         return newSeries;
     }
@@ -97,7 +99,7 @@ public class XSSFStackedBarChartData implements StackedBarChartData {
 
         // create a stacked bar
         barChart.addNewGrouping().setVal(STBarGrouping.PERCENT_STACKED);
-        barChart.addNewOverlap().setVal((byte)100);
+        barChart.addNewOverlap().setVal((byte) 100);
 
         barChart.addNewVaryColors().setVal(false);
 

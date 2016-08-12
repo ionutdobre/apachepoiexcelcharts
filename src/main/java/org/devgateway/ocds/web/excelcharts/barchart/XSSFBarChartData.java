@@ -76,7 +76,8 @@ public class XSSFBarChartData implements BarChartData {
             throw new IllegalArgumentException("Value data source must be numeric.");
         }
         int numOfSeries = series.size();
-        XSSFBarChartData.Series newSeries = new XSSFBarChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
+        XSSFBarChartData.Series newSeries =
+                new XSSFBarChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
         series.add(newSeries);
         return newSeries;
     }
