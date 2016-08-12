@@ -26,12 +26,15 @@ import org.apache.poi.xssf.usermodel.XSSFChart;
 import org.apache.poi.xssf.usermodel.charts.AbstractXSSFChartSeries;
 import org.excelchart.util.XSSFChartUtil;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTCatAx;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTNumDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTPlotArea;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTScatterChart;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTScatterSer;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTScatterStyle;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTValAx;
 import org.openxmlformats.schemas.drawingml.x2006.chart.STScatterStyle;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTSRgbColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,6 +132,20 @@ public class XSSFScatterChartData implements ScatterChartData {
 
         for (ChartAxis ax : axis) {
             scatterChart.addNewAxId().setVal(ax.getId());
+        }
+
+        // add grid lines
+        CTSRgbColor rgb = CTSRgbColor.Factory.newInstance();
+        rgb.setVal(new byte[]{(byte) 0, (byte) 0, (byte) 0});
+
+        CTCatAx[] ctCatAx = plotArea.getCatAxArray();
+        if(ctCatAx.length != 0) {
+            ctCatAx[0].addNewMajorGridlines().addNewSpPr().addNewSolidFill().setSrgbClr(rgb);
+        }
+
+        CTValAx[] ctValAx = plotArea.getValAxArray();
+        if(ctValAx.length != 0) {
+            ctValAx[0].addNewMajorGridlines().addNewSpPr().addNewSolidFill().setSrgbClr(rgb);
         }
     }
 

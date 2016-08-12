@@ -94,7 +94,7 @@ public class Main {
         CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
         ScatterChartData data = customChartDataFactory.createScatterChartData();
 
-        ValueAxis bottomAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.BOTTOM);
+        ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
         ValueAxis leftAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
         leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
 
