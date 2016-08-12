@@ -42,8 +42,8 @@ public class Main {
         System.out.println(">>> start");
 
         try {
-            createScatterChart();
-            // createLineChart();
+            // createScatterChart();
+            createLineChart();
             // createBarChart();
             // createStackedBarChart();
             // createAreaChartChart();

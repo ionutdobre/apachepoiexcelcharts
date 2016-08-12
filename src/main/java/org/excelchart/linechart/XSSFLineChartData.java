@@ -24,11 +24,14 @@ import org.apache.poi.xssf.usermodel.XSSFChart;
 import org.apache.poi.xssf.usermodel.charts.AbstractXSSFChartSeries;
 import org.excelchart.util.XSSFChartUtil;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTCatAx;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTLineChart;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTLineSer;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTNumDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTPlotArea;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTValAx;
 import org.openxmlformats.schemas.drawingml.x2006.chart.STMarkerStyle;
+import org.openxmlformats.schemas.drawingml.x2006.main.CTSRgbColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +57,8 @@ public class XSSFLineChartData implements LineChartData {
         private ChartDataSource<? extends Number> values;
 
         protected Series(int id, int order,
-                        ChartDataSource<?> categories,
-                        ChartDataSource<? extends Number> values) {
+                         ChartDataSource<?> categories,
+                         ChartDataSource<? extends Number> values) {
             this.id = id;
             this.order = order;
             this.categories = categories;
@@ -119,6 +122,20 @@ public class XSSFLineChartData implements LineChartData {
 
         for (ChartAxis ax : axis) {
             lineChart.addNewAxId().setVal(ax.getId());
+        }
+
+        // add grid lines
+        CTSRgbColor rgb = CTSRgbColor.Factory.newInstance();
+        rgb.setVal(new byte[]{(byte) 0, (byte) 0, (byte) 0});
+
+        CTCatAx[] ctCatAx = plotArea.getCatAxArray();
+        if(ctCatAx.length != 0) {
+            ctCatAx[0].addNewMajorGridlines().addNewSpPr().addNewSolidFill().setSrgbClr(rgb);
+        }
+
+        CTValAx[] ctValAx = plotArea.getValAxArray();
+        if(ctValAx.length != 0) {
+            ctValAx[0].addNewMajorGridlines().addNewSpPr().addNewSolidFill().setSrgbClr(rgb);
         }
     }
 }
