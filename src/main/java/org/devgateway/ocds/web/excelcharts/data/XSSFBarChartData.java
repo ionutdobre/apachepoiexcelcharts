@@ -1,4 +1,4 @@
-package org.devgateway.ocds.web.excelcharts.stackedbarchart;
+package org.devgateway.ocds.web.excelcharts.data;
 
 import org.apache.poi.ss.usermodel.Chart;
 import org.apache.poi.ss.usermodel.charts.ChartAxis;
@@ -14,7 +14,6 @@ import org.openxmlformats.schemas.drawingml.x2006.chart.CTBarSer;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTNumDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTPlotArea;
 import org.openxmlformats.schemas.drawingml.x2006.chart.STBarDir;
-import org.openxmlformats.schemas.drawingml.x2006.chart.STBarGrouping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +21,16 @@ import java.util.List;
 /**
  * @author idobre
  * @since 8/8/16
- * Holds data for a XSSF Stacked Bar Chart
+ * Holds data for a XSSF Bar Chart
  */
-public class XSSFStackedBarChartData implements CustomChartData {
+public class XSSFBarChartData implements CustomChartData {
     /**
      * List of all data series.
      */
-    private List<XSSFStackedBarChartData.Series> series;
+    private List<XSSFBarChartData.Series> series;
 
-    public XSSFStackedBarChartData() {
-        series = new ArrayList<XSSFStackedBarChartData.Series>();
+    public XSSFBarChartData() {
+        series = new ArrayList<XSSFBarChartData.Series>();
     }
 
     static class Series extends AbstractXSSFChartSeries implements CustomChartSeries {
@@ -74,14 +73,13 @@ public class XSSFStackedBarChartData implements CustomChartData {
         }
     }
 
-    public CustomChartSeries addSeries(ChartDataSource<?> categoryAxisData,
-                                           ChartDataSource<? extends Number> values) {
+    public CustomChartSeries addSeries(ChartDataSource<?> categoryAxisData, ChartDataSource<? extends Number> values) {
         if (!values.isNumeric()) {
             throw new IllegalArgumentException("Value data source must be numeric.");
         }
         int numOfSeries = series.size();
-        XSSFStackedBarChartData.Series newSeries =
-                new XSSFStackedBarChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
+        XSSFBarChartData.Series newSeries =
+                new XSSFBarChartData.Series(numOfSeries, numOfSeries, categoryAxisData, values);
         series.add(newSeries);
         return newSeries;
     }
@@ -99,16 +97,12 @@ public class XSSFStackedBarChartData implements CustomChartData {
         CTPlotArea plotArea = xssfChart.getCTChart().getPlotArea();
         CTBarChart barChart = plotArea.addNewBarChart();
 
-        // create a stacked bar
-        barChart.addNewGrouping().setVal(STBarGrouping.PERCENT_STACKED);
-        barChart.addNewOverlap().setVal((byte) 100);
-
         barChart.addNewVaryColors().setVal(false);
 
         // set bars orientation
         barChart.addNewBarDir().setVal(STBarDir.COL);
 
-        for (XSSFStackedBarChartData.Series s : series) {
+        for (XSSFBarChartData.Series s : series) {
             s.addToChart(barChart);
         }
 

@@ -1,12 +1,12 @@
 package org.devgateway.ocds.web.excelcharts.util;
 
 import org.devgateway.ocds.web.excelcharts.CustomChartData;
-import org.devgateway.ocds.web.excelcharts.areachart.XSSFAreaChartData;
-import org.devgateway.ocds.web.excelcharts.barchart.XSSFBarChartData;
-import org.devgateway.ocds.web.excelcharts.linechart.XSSFLineChartData;
-import org.devgateway.ocds.web.excelcharts.piechart.XSSFPieChartData;
-import org.devgateway.ocds.web.excelcharts.scatterchart.XSSFScatterChartData;
-import org.devgateway.ocds.web.excelcharts.stackedbarchart.XSSFStackedBarChartData;
+import org.devgateway.ocds.web.excelcharts.data.XSSFAreaChartData;
+import org.devgateway.ocds.web.excelcharts.data.XSSFBarChartData;
+import org.devgateway.ocds.web.excelcharts.data.XSSFLineChartData;
+import org.devgateway.ocds.web.excelcharts.data.XSSFPieChartData;
+import org.devgateway.ocds.web.excelcharts.data.XSSFScatterChartData;
+import org.devgateway.ocds.web.excelcharts.data.XSSFStackedBarChartData;
 
 /**
  * @author idobre

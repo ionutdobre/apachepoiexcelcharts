@@ -1,4 +1,4 @@
-package org.devgateway.ocds.web.excelcharts.areachart;
+package org.devgateway.ocds.web.excelcharts.data;
 
 import org.apache.poi.ss.usermodel.Chart;
 import org.apache.poi.ss.usermodel.charts.ChartAxis;
