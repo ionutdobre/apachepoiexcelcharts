@@ -5,6 +5,8 @@ import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.xssf.usermodel.XSSFChart;
 import org.apache.poi.xssf.usermodel.charts.AbstractXSSFChartSeries;
+import org.devgateway.ocds.web.excelcharts.CustomChartData;
+import org.devgateway.ocds.web.excelcharts.CustomChartSeries;
 import org.devgateway.ocds.web.excelcharts.util.XSSFChartUtil;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTBarChart;
@@ -22,7 +24,7 @@ import java.util.List;
  * @since 8/8/16
  * Holds data for a XSSF Stacked Bar Chart
  */
-public class XSSFStackedBarChartData implements StackedBarChartData {
+public class XSSFStackedBarChartData implements CustomChartData {
     /**
      * List of all data series.
      */
@@ -32,7 +34,7 @@ public class XSSFStackedBarChartData implements StackedBarChartData {
         series = new ArrayList<XSSFStackedBarChartData.Series>();
     }
 
-    static class Series extends AbstractXSSFChartSeries implements StackedBarChartSeries {
+    static class Series extends AbstractXSSFChartSeries implements CustomChartSeries {
         private int id;
         private int order;
         private ChartDataSource<?> categories;
@@ -72,7 +74,7 @@ public class XSSFStackedBarChartData implements StackedBarChartData {
         }
     }
 
-    public StackedBarChartSeries addSeries(ChartDataSource<?> categoryAxisData,
+    public CustomChartSeries addSeries(ChartDataSource<?> categoryAxisData,
                                            ChartDataSource<? extends Number> values) {
         if (!values.isNumeric()) {
             throw new IllegalArgumentException("Value data source must be numeric.");
@@ -84,7 +86,7 @@ public class XSSFStackedBarChartData implements StackedBarChartData {
         return newSeries;
     }
 
-    public List<? extends StackedBarChartSeries> getSeries() {
+    public List<? extends CustomChartSeries> getSeries() {
         return series;
     }
 

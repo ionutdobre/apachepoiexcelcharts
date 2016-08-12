@@ -5,6 +5,8 @@ import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.xssf.usermodel.XSSFChart;
 import org.apache.poi.xssf.usermodel.charts.AbstractXSSFChartSeries;
+import org.devgateway.ocds.web.excelcharts.CustomChartData;
+import org.devgateway.ocds.web.excelcharts.CustomChartSeries;
 import org.devgateway.ocds.web.excelcharts.util.XSSFChartUtil;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTNumDataSource;
@@ -20,7 +22,7 @@ import java.util.List;
  * @since 8/8/16
  * Holds data for a XSSF Pie Chart
  */
-public class XSSFPieChartData implements PieChartData {
+public class XSSFPieChartData implements CustomChartData {
     /**
      * List of all data series.
      */
@@ -30,7 +32,7 @@ public class XSSFPieChartData implements PieChartData {
         series = new ArrayList<XSSFPieChartData.Series>();
     }
 
-    static class Series extends AbstractXSSFChartSeries implements PieChartSeries {
+    static class Series extends AbstractXSSFChartSeries implements CustomChartSeries {
         private int id;
         private int order;
         private ChartDataSource<?> categories;
@@ -70,7 +72,7 @@ public class XSSFPieChartData implements PieChartData {
         }
     }
 
-    public PieChartSeries addSeries(ChartDataSource<?> categoryAxisData, ChartDataSource<? extends Number> values) {
+    public CustomChartSeries addSeries(ChartDataSource<?> categoryAxisData, ChartDataSource<? extends Number> values) {
         if (!values.isNumeric()) {
             throw new IllegalArgumentException("Value data source must be numeric.");
         }
@@ -81,7 +83,7 @@ public class XSSFPieChartData implements PieChartData {
         return newSeries;
     }
 
-    public List<? extends PieChartSeries> getSeries() {
+    public List<? extends CustomChartSeries> getSeries() {
         return series;
     }
 

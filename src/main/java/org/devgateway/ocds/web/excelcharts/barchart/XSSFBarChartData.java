@@ -5,6 +5,8 @@ import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.xssf.usermodel.XSSFChart;
 import org.apache.poi.xssf.usermodel.charts.AbstractXSSFChartSeries;
+import org.devgateway.ocds.web.excelcharts.CustomChartData;
+import org.devgateway.ocds.web.excelcharts.CustomChartSeries;
 import org.devgateway.ocds.web.excelcharts.util.XSSFChartUtil;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTBarChart;
@@ -21,7 +23,7 @@ import java.util.List;
  * @since 8/8/16
  * Holds data for a XSSF Bar Chart
  */
-public class XSSFBarChartData implements BarChartData {
+public class XSSFBarChartData implements CustomChartData {
     /**
      * List of all data series.
      */
@@ -31,7 +33,7 @@ public class XSSFBarChartData implements BarChartData {
         series = new ArrayList<XSSFBarChartData.Series>();
     }
 
-    static class Series extends AbstractXSSFChartSeries implements BarChartSeries {
+    static class Series extends AbstractXSSFChartSeries implements CustomChartSeries {
         private int id;
         private int order;
         private ChartDataSource<?> categories;
@@ -71,7 +73,7 @@ public class XSSFBarChartData implements BarChartData {
         }
     }
 
-    public BarChartSeries addSeries(ChartDataSource<?> categoryAxisData, ChartDataSource<? extends Number> values) {
+    public CustomChartSeries addSeries(ChartDataSource<?> categoryAxisData, ChartDataSource<? extends Number> values) {
         if (!values.isNumeric()) {
             throw new IllegalArgumentException("Value data source must be numeric.");
         }
@@ -82,7 +84,7 @@ public class XSSFBarChartData implements BarChartData {
         return newSeries;
     }
 
-    public List<? extends BarChartSeries> getSeries() {
+    public List<? extends CustomChartSeries> getSeries() {
         return series;
     }
 
