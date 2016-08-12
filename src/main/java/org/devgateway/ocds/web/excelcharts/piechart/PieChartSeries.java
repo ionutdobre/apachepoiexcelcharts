@@ -1,4 +1,4 @@
-package org.excelchart.stackedbarchart;
+package org.devgateway.ocds.web.excelcharts.piechart;
 
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 
@@ -6,9 +6,9 @@ import org.apache.poi.ss.usermodel.charts.ChartDataSource;
  * @author idobre
  * @since 8/8/16
  *
- * Represents a stacked bar chart series.
+ * Represents a pie chart series.
  */
-public interface StackedBarChartSeries {
+public interface PieChartSeries {
     /**
      * @return data source used for category axis data.
      */

@@ -1,4 +1,4 @@
-package org.excelchart.areachart;
+package org.devgateway.ocds.web.excelcharts.piechart;
 
 import org.apache.poi.ss.usermodel.charts.ChartData;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
@@ -9,19 +9,19 @@ import java.util.List;
  * @author idobre
  * @since 8/8/16
  *
- * Data for a Area Chart
+ * Data for a Pie Chart
  */
-public interface AreaChartData extends ChartData {
+public interface PieChartData extends ChartData {
 
     /**
      * @param categories data source for categories.
      * @param values     data source for values.
-     * @return a new area chart serie.
+     * @return a new pie chart serie.
      */
-    AreaChartSeries addSeries(ChartDataSource<?> categories, ChartDataSource<? extends Number> values);
+    PieChartSeries addSeries(ChartDataSource<?> categories, ChartDataSource<? extends Number> values);
 
     /**
      * @return list of all series.
      */
-    List<? extends AreaChartSeries> getSeries();
+    List<? extends PieChartSeries> getSeries();
 }

@@ -1,16 +1,17 @@
-package org.excelchart.util;
+package org.devgateway.ocds.web.excelcharts.util;
 
-import org.excelchart.areachart.AreaChartData;
-import org.excelchart.areachart.XSSFAreaChartData;
-import org.excelchart.barchart.BarChartData;
-import org.excelchart.barchart.XSSFBarChartData;
-import org.excelchart.linechart.LineChartData;
-import org.excelchart.piechart.PieChartData;
-import org.excelchart.piechart.XSSFPieChartData;
-import org.excelchart.scatterchart.ScatterChartData;
-import org.excelchart.scatterchart.XSSFScatterChartData;
-import org.excelchart.stackedbarchart.StackedBarChartData;
-import org.excelchart.stackedbarchart.XSSFStackedBarChartData;
+import org.devgateway.ocds.web.excelcharts.areachart.AreaChartData;
+import org.devgateway.ocds.web.excelcharts.areachart.XSSFAreaChartData;
+import org.devgateway.ocds.web.excelcharts.barchart.BarChartData;
+import org.devgateway.ocds.web.excelcharts.barchart.XSSFBarChartData;
+import org.devgateway.ocds.web.excelcharts.linechart.LineChartData;
+import org.devgateway.ocds.web.excelcharts.linechart.XSSFLineChartData;
+import org.devgateway.ocds.web.excelcharts.piechart.PieChartData;
+import org.devgateway.ocds.web.excelcharts.piechart.XSSFPieChartData;
+import org.devgateway.ocds.web.excelcharts.scatterchart.ScatterChartData;
+import org.devgateway.ocds.web.excelcharts.scatterchart.XSSFScatterChartData;
+import org.devgateway.ocds.web.excelcharts.stackedbarchart.StackedBarChartData;
+import org.devgateway.ocds.web.excelcharts.stackedbarchart.XSSFStackedBarChartData;
 
 /**
  * @author idobre
@@ -28,7 +29,7 @@ public class CustomChartDataFactoryDefault implements CustomChartDataFactory {
      * @return new line charts data instance
      */
     public LineChartData createLineChartData() {
-        return new org.excelchart.linechart.XSSFLineChartData();
+        return new XSSFLineChartData();
     }
 
     /**

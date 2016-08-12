@@ -1,4 +1,4 @@
-package org.excelchart.areachart;
+package org.devgateway.ocds.web.excelcharts.stackedbarchart;
 
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 
@@ -6,9 +6,9 @@ import org.apache.poi.ss.usermodel.charts.ChartDataSource;
  * @author idobre
  * @since 8/8/16
  *
- * Represents a area chart series.
+ * Represents a stacked bar chart series.
  */
-public interface AreaChartSeries {
+public interface StackedBarChartSeries {
     /**
      * @return data source used for category axis data.
      */

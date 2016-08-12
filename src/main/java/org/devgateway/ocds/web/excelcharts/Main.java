@@ -1,4 +1,4 @@
-package org.excelchart;
+package org.devgateway.ocds.web.excelcharts;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Chart;
@@ -17,14 +17,14 @@ import org.apache.poi.ss.usermodel.charts.LegendPosition;
 import org.apache.poi.ss.usermodel.charts.ValueAxis;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.excelchart.areachart.AreaChartData;
-import org.excelchart.barchart.BarChartData;
-import org.excelchart.linechart.LineChartData;
-import org.excelchart.piechart.PieChartData;
-import org.excelchart.scatterchart.ScatterChartData;
-import org.excelchart.stackedbarchart.StackedBarChartData;
-import org.excelchart.util.CustomChartDataFactory;
-import org.excelchart.util.CustomChartDataFactoryDefault;
+import org.devgateway.ocds.web.excelcharts.scatterchart.ScatterChartData;
+import org.devgateway.ocds.web.excelcharts.areachart.AreaChartData;
+import org.devgateway.ocds.web.excelcharts.barchart.BarChartData;
+import org.devgateway.ocds.web.excelcharts.linechart.LineChartData;
+import org.devgateway.ocds.web.excelcharts.piechart.PieChartData;
+import org.devgateway.ocds.web.excelcharts.stackedbarchart.StackedBarChartData;
+import org.devgateway.ocds.web.excelcharts.util.CustomChartDataFactory;
+import org.devgateway.ocds.web.excelcharts.util.CustomChartDataFactoryDefault;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

@@ -15,95 +15,104 @@
    limitations under the License.
    ==================================================================== */
 
-package org.excelchart.linechart;
+package org.devgateway.ocds.web.excelcharts.scatterchart;
 
 import org.apache.poi.ss.usermodel.Chart;
 import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.xssf.usermodel.XSSFChart;
 import org.apache.poi.xssf.usermodel.charts.AbstractXSSFChartSeries;
-import org.excelchart.util.XSSFChartUtil;
+import org.devgateway.ocds.web.excelcharts.util.XSSFChartUtil;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTCatAx;
-import org.openxmlformats.schemas.drawingml.x2006.chart.CTLineChart;
-import org.openxmlformats.schemas.drawingml.x2006.chart.CTLineSer;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTNumDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTPlotArea;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTScatterChart;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTScatterSer;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTScatterStyle;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTValAx;
-import org.openxmlformats.schemas.drawingml.x2006.chart.STMarkerStyle;
+import org.openxmlformats.schemas.drawingml.x2006.chart.STScatterStyle;
 import org.openxmlformats.schemas.drawingml.x2006.main.CTSRgbColor;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Holds data for a XSSF Line Chart
+ * Represents DrawingML scatter charts.
  */
-public class XSSFLineChartData implements LineChartData {
+public class XSSFScatterChartData implements ScatterChartData {
 
     /**
      * List of all data series.
      */
     private List<Series> series;
 
-    public XSSFLineChartData() {
+    public XSSFScatterChartData() {
         series = new ArrayList<Series>();
     }
 
-    static class Series extends AbstractXSSFChartSeries implements LineChartSeries {
+    /**
+     * Package private ScatterChartSerie implementation.
+     */
+    static class Series extends AbstractXSSFChartSeries implements ScatterChartSeries {
         private int id;
         private int order;
-        private ChartDataSource<?> categories;
-        private ChartDataSource<? extends Number> values;
+        private ChartDataSource<?> xs;
+        private ChartDataSource<? extends Number> ys;
 
         protected Series(int id, int order,
-                         ChartDataSource<?> categories,
-                         ChartDataSource<? extends Number> values) {
+                        ChartDataSource<?> xs,
+                        ChartDataSource<? extends Number> ys) {
+            super();
             this.id = id;
             this.order = order;
-            this.categories = categories;
-            this.values = values;
+            this.xs = xs;
+            this.ys = ys;
         }
 
-        public ChartDataSource<?> getCategoryAxisData() {
-            return categories;
+        /**
+         * Returns data source used for X axis values.
+         * @return data source used for X axis values
+         */
+        public ChartDataSource<?> getXValues() {
+            return xs;
         }
 
-        public ChartDataSource<? extends Number> getValues() {
-            return values;
+        /**
+         * Returns data source used for Y axis values.
+         * @return data source used for Y axis values
+         */
+        public ChartDataSource<? extends Number> getYValues() {
+            return ys;
         }
 
-        protected void addToChart(CTLineChart ctLineChart) {
-            CTLineSer ctLineSer = ctLineChart.addNewSer();
-            ctLineSer.addNewIdx().setVal(id);
-            ctLineSer.addNewOrder().setVal(order);
+        protected void addToChart(CTScatterChart ctScatterChart) {
+            CTScatterSer scatterSer = ctScatterChart.addNewSer();
+            scatterSer.addNewIdx().setVal(this.id);
+            scatterSer.addNewOrder().setVal(this.order);
 
-            // No marker symbol on the chart line.
-            ctLineSer.addNewMarker().addNewSymbol().setVal(STMarkerStyle.NONE);
+            CTAxDataSource xVal = scatterSer.addNewXVal();
+            XSSFChartUtil.buildAxDataSource(xVal, xs);
 
-            CTAxDataSource catDS = ctLineSer.addNewCat();
-            XSSFChartUtil.buildAxDataSource(catDS, categories);
-            CTNumDataSource valueDS = ctLineSer.addNewVal();
-            XSSFChartUtil.buildNumDataSource(valueDS, values);
+            CTNumDataSource yVal = scatterSer.addNewYVal();
+            XSSFChartUtil.buildNumDataSource(yVal, ys);
 
-            if (isTitleSet()) {
-                ctLineSer.setTx(getCTSerTx());
-            }
+			if (isTitleSet()) {
+				scatterSer.setTx(getCTSerTx());
+			}
         }
     }
 
-    public LineChartSeries addSeries(ChartDataSource<?> categoryAxisData, ChartDataSource<? extends Number> values) {
-        if (!values.isNumeric()) {
-            throw new IllegalArgumentException("Value data source must be numeric.");
+    public ScatterChartSeries addSerie(ChartDataSource<?> xs,
+                                      ChartDataSource<? extends Number> ys) {
+        if (!ys.isNumeric()) {
+            throw new IllegalArgumentException("Y axis data source must be numeric.");
         }
         int numOfSeries = series.size();
-        Series newSeries = new Series(numOfSeries, numOfSeries, categoryAxisData, values);
-        series.add(newSeries);
-        return newSeries;
-    }
-
-    public List<? extends LineChartSeries> getSeries() {
-        return series;
+        Series newSerie = new Series(numOfSeries, numOfSeries, xs, ys);
+        series.add(newSerie);
+        return newSerie;
     }
 
     public void fillChart(Chart chart, ChartAxis... axis) {
@@ -113,15 +122,14 @@ public class XSSFLineChartData implements LineChartData {
 
         XSSFChart xssfChart = (XSSFChart) chart;
         CTPlotArea plotArea = xssfChart.getCTChart().getPlotArea();
-        CTLineChart lineChart = plotArea.addNewLineChart();
-        lineChart.addNewVaryColors().setVal(false);
+        CTScatterChart scatterChart = plotArea.addNewScatterChart();
 
         for (Series s : series) {
-            s.addToChart(lineChart);
+            s.addToChart(scatterChart);
         }
 
         for (ChartAxis ax : axis) {
-            lineChart.addNewAxId().setVal(ax.getId());
+            scatterChart.addNewAxId().setVal(ax.getId());
         }
 
         // add grid lines
@@ -137,5 +145,14 @@ public class XSSFLineChartData implements LineChartData {
         if(ctValAx.length != 0) {
             ctValAx[0].addNewMajorGridlines().addNewSpPr().addNewSolidFill().setSrgbClr(rgb);
         }
+    }
+
+    public List<? extends Series> getSeries() {
+        return series;
+    }
+
+    private void addStyle(CTScatterChart ctScatterChart) {
+        CTScatterStyle scatterStyle = ctScatterChart.addNewScatterStyle();
+        scatterStyle.setVal(STScatterStyle.LINE_MARKER);
     }
 }

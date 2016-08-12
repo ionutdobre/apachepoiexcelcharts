@@ -1,11 +1,11 @@
-package org.excelchart.util;
+package org.devgateway.ocds.web.excelcharts.util;
 
-import org.excelchart.areachart.AreaChartData;
-import org.excelchart.barchart.BarChartData;
-import org.excelchart.linechart.LineChartData;
-import org.excelchart.piechart.PieChartData;
-import org.excelchart.scatterchart.ScatterChartData;
-import org.excelchart.stackedbarchart.StackedBarChartData;
+import org.devgateway.ocds.web.excelcharts.scatterchart.ScatterChartData;
+import org.devgateway.ocds.web.excelcharts.areachart.AreaChartData;
+import org.devgateway.ocds.web.excelcharts.barchart.BarChartData;
+import org.devgateway.ocds.web.excelcharts.linechart.LineChartData;
+import org.devgateway.ocds.web.excelcharts.piechart.PieChartData;
+import org.devgateway.ocds.web.excelcharts.stackedbarchart.StackedBarChartData;
 
 /**
  * @author idobre

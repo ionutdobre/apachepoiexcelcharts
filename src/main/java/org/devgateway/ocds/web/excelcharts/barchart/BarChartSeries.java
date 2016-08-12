@@ -1,4 +1,4 @@
-package org.excelchart.piechart;
+package org.devgateway.ocds.web.excelcharts.barchart;
 
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 
@@ -6,9 +6,9 @@ import org.apache.poi.ss.usermodel.charts.ChartDataSource;
  * @author idobre
  * @since 8/8/16
  *
- * Represents a pie chart series.
+ * Represents a bar chart series.
  */
-public interface PieChartSeries {
+public interface BarChartSeries {
     /**
      * @return data source used for category axis data.
      */

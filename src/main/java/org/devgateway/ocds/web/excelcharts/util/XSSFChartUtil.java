@@ -1,4 +1,4 @@
-package org.excelchart.util;
+package org.devgateway.ocds.web.excelcharts.util;
 
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
@@ -16,8 +16,10 @@ import org.openxmlformats.schemas.drawingml.x2006.chart.CTStrVal;
  *
  * Package private class with utility methods. It's based on org.apache.poi.xssf.usermodel.charts.XSSFChartUtil class
  */
-public class XSSFChartUtil {
-    private XSSFChartUtil() {}
+public final class XSSFChartUtil {
+    private XSSFChartUtil() {
+
+    }
 
     /**
      * Builds CTAxDataSource object content from POI ChartDataSource.

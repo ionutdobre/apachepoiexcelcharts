@@ -15,7 +15,7 @@
    limitations under the License.
 ==================================================================== */
 
-package org.excelchart.linechart;
+package org.devgateway.ocds.web.excelcharts.linechart;
 
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.ss.usermodel.charts.ChartSeries;
