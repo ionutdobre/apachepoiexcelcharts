@@ -22,6 +22,7 @@ import java.util.List;
  * Holds data for a XSSF Pie Chart
  */
 public class XSSFPieChartData extends AbstarctXSSFChartData {
+    @Override
     protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<?> categories,
                                                final ChartDataSource<? extends Number> values) {
         return new AbstractSeries(id, order, categories, values) {

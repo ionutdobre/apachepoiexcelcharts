@@ -26,6 +26,7 @@ import org.openxmlformats.schemas.drawingml.x2006.main.CTSRgbColor;
  * Holds data for a XSSF Scatter Chart
  */
 public class XSSFScatterChartData extends AbstarctXSSFChartData {
+    @Override
     protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<?> categories,
                                                final ChartDataSource<? extends Number> values) {
         return new AbstractSeries(id, order, categories, values) {

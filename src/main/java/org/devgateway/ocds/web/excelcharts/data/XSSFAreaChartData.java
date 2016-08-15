@@ -20,6 +20,7 @@ import org.openxmlformats.schemas.drawingml.x2006.chart.CTPlotArea;
  */
 public class XSSFAreaChartData extends AbstarctXSSFChartData {
 
+    @Override
     protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<?> categories,
                                                final ChartDataSource<? extends Number> values) {
         return new AbstractSeries(id, order, categories, values) {
