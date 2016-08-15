@@ -32,7 +32,7 @@ public class Main {
     private static final int NUM_OF_ROWS = 3;
     private static final int NUM_OF_COLUMNS = 5;
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         System.out.println(">>> start");
 
         try {
@@ -48,7 +48,7 @@ public class Main {
         System.out.println(">>> end");
     }
 
-    private static Sheet createSheet(Workbook wb, String sheetName) {
+    private static Sheet createSheet(final Workbook wb, final String sheetName) {
         Sheet sheet = wb.createSheet(sheetName);
 
         // Create a row and put some cells in it. Rows are 0 based.
@@ -69,7 +69,7 @@ public class Main {
         return sheet;
     }
 
-    private static Chart createChartAndLegend(Sheet sheet) {
+    private static Chart createChartAndLegend(final Sheet sheet) {
         Drawing drawing = sheet.createDrawingPatriarch();
         ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 5, 15, 20);
 
