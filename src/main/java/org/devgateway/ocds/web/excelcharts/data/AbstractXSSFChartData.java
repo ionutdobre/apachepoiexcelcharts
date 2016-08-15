@@ -11,17 +11,17 @@ import java.util.List;
  * @author idobre
  * @since 8/12/16
  */
-public abstract class AbstarctXSSFChartData implements CustomChartData {
+public abstract class AbstractXSSFChartData implements CustomChartData {
     /**
      * List of all data series.
      */
-    protected List<CustomChartSeries> series;
+    protected final List<CustomChartSeries> series;
 
-    public AbstarctXSSFChartData() {
-        series = new ArrayList<CustomChartSeries>();
+    public AbstractXSSFChartData() {
+        series = new ArrayList<>();
     }
 
-
+    @Override
     public CustomChartSeries addSeries(final ChartDataSource<?> categoryAxisData,
                                        final ChartDataSource<? extends Number> values) {
         if (!values.isNumeric()) {
@@ -35,18 +35,8 @@ public abstract class AbstarctXSSFChartData implements CustomChartData {
         return newSeries;
     }
 
-    public List<? extends CustomChartSeries> getSeries() {
-        return series;
-    }
-
     /**
-     * Add a new Serie specific to each AbstarctXSSFChartData implementation.
-     *
-     * @param id
-     * @param order
-     * @param categories
-     * @param values
-     * @return
+     * Add a new Serie specific to each AbstractXSSFChartData implementation.
      */
     protected abstract CustomChartSeries createNewSerie(final int id, final int order,
                                                         final ChartDataSource<?> categories,

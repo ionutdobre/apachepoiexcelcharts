@@ -3,8 +3,6 @@ package org.devgateway.ocds.web.excelcharts;
 import org.apache.poi.ss.usermodel.charts.ChartData;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 
-import java.util.List;
-
 /**
  * @author idobre
  * @since 8/12/16
@@ -18,9 +16,4 @@ public interface CustomChartData extends ChartData {
      * @return a new chart serie.
      */
     CustomChartSeries addSeries(final ChartDataSource<?> categories, final ChartDataSource<? extends Number> values);
-
-    /**
-     * @return list of all series.
-     */
-    List<? extends CustomChartSeries> getSeries();
 }

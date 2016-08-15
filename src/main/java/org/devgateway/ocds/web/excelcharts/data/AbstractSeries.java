@@ -9,13 +9,13 @@ import org.devgateway.ocds.web.excelcharts.CustomChartSeries;
  * @since 8/12/16
  */
 public abstract class AbstractSeries extends AbstractXSSFChartSeries implements CustomChartSeries {
-    protected int id;
+    protected final int id;
 
-    protected int order;
+    protected final int order;
 
-    protected ChartDataSource<?> categories;
+    protected final ChartDataSource<?> categories;
 
-    protected ChartDataSource<? extends Number> values;
+    protected final ChartDataSource<? extends Number> values;
 
     public AbstractSeries(final int id,
                           final int order,
@@ -25,13 +25,5 @@ public abstract class AbstractSeries extends AbstractXSSFChartSeries implements 
         this.order = order;
         this.categories = categories;
         this.values = values;
-    }
-
-    public ChartDataSource<?> getCategoryAxisData() {
-        return categories;
-    }
-
-    public ChartDataSource<? extends Number> getValues() {
-        return values;
     }
 }

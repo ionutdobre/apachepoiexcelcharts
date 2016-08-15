@@ -4,9 +4,7 @@ import org.apache.poi.ss.usermodel.Chart;
 import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.xssf.usermodel.XSSFChart;
-import org.apache.poi.xssf.usermodel.charts.AbstractXSSFChartSeries;
 import org.apache.xmlbeans.XmlObject;
-import org.devgateway.ocds.web.excelcharts.CustomChartData;
 import org.devgateway.ocds.web.excelcharts.CustomChartSeries;
 import org.devgateway.ocds.web.excelcharts.util.XSSFChartUtil;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
@@ -19,23 +17,22 @@ import org.openxmlformats.schemas.drawingml.x2006.chart.CTValAx;
 import org.openxmlformats.schemas.drawingml.x2006.chart.STMarkerStyle;
 import org.openxmlformats.schemas.drawingml.x2006.main.CTSRgbColor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author idobre
  * @since 8/12/16
  *
- * Holds data for a XSSF Line Chart
+ * Holds data for a XSSF Line Chart.
  */
-public class XSSFLineChartData extends AbstarctXSSFChartData {
+public class XSSFLineChartData extends AbstractXSSFChartData {
     @Override
     protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<?> categories,
                                                final ChartDataSource<? extends Number> values) {
         return new AbstractSeries(id, order, categories, values) {
+            @Override
             public void addToChart(final XmlObject ctChart) {
                 CTLineChart ctLineChart = (CTLineChart) ctChart;
                 CTLineSer ctLineSer = ctLineChart.addNewSer();
+
                 ctLineSer.addNewIdx().setVal(id);
                 ctLineSer.addNewOrder().setVal(order);
 
@@ -55,6 +52,7 @@ public class XSSFLineChartData extends AbstarctXSSFChartData {
         };
     }
 
+    @Override
     public void fillChart(final Chart chart, final ChartAxis... axis) {
         if (!(chart instanceof XSSFChart)) {
             throw new IllegalArgumentException("Chart must be instance of XSSFChart");

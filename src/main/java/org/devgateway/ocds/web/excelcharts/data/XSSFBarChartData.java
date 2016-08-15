@@ -17,16 +17,19 @@ import org.openxmlformats.schemas.drawingml.x2006.chart.STBarDir;
 /**
  * @author idobre
  * @since 8/8/16
- * Holds data for a XSSF Bar Chart
+ *
+ * Holds data for a XSSF Bar Chart.
  */
-public class XSSFBarChartData extends AbstarctXSSFChartData {
+public class XSSFBarChartData extends AbstractXSSFChartData {
     @Override
     protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<?> categories,
                                                final ChartDataSource<? extends Number> values) {
         return new AbstractSeries(id, order, categories, values) {
+            @Override
             public void addToChart(final XmlObject ctChart) {
                 CTBarChart ctBarChart = (CTBarChart) ctChart;
                 CTBarSer ctBarSer = ctBarChart.addNewSer();
+
                 ctBarSer.addNewIdx().setVal(id);
                 ctBarSer.addNewOrder().setVal(order);
 
@@ -43,6 +46,7 @@ public class XSSFBarChartData extends AbstarctXSSFChartData {
         };
     }
 
+    @Override
     public void fillChart(final Chart chart, final ChartAxis... axis) {
         if (!(chart instanceof XSSFChart)) {
             throw new IllegalArgumentException("Chart must be instance of XSSFChart");
