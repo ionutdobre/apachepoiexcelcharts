@@ -20,9 +20,12 @@ import org.openxmlformats.schemas.drawingml.x2006.chart.CTPlotArea;
  * Holds data for a XSSF Area Chart.
  */
 public class XSSFAreaChartData extends AbstractXSSFChartData {
+    public XSSFAreaChartData(final String title) {
+        super(title);
+    }
 
     @Override
-    protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<?> categories,
+    protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<String> categories,
                                                final ChartDataSource<? extends Number> values) {
         return new AbstractSeries(id, order, categories, values) {
             @Override
@@ -56,6 +59,8 @@ public class XSSFAreaChartData extends AbstractXSSFChartData {
         CTPlotArea plotArea = xssfChart.getCTChart().getPlotArea();
         CTAreaChart areChart = plotArea.addNewAreaChart();
         areChart.addNewVaryColors().setVal(false);
+
+        xssfChart.setTitle(this.title);
 
         for (CustomChartSeries s : series) {
             s.addToChart(areChart);

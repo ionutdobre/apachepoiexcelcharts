@@ -22,6 +22,9 @@ import org.devgateway.ocds.web.excelcharts.util.CustomChartDataFactoryDefault;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -37,16 +40,39 @@ public class Main {
 
 
         try {
-            createScatterChart();
-            createLineChart();
-            createBarChart();
-            createStackedBarChart();
-            createAreaChartChart();
-            createPieChartChart();
+            // createScatterChart();
+            // createLineChart();
+            // createBarChart();
+            // createStackedBarChart();
+            // createAreaChartChart();
+            // createPieChartChart();
+            test();
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println(">>> end");
+    }
+
+    private static void test() throws IOException {
+        final List<String> categories = Arrays.asList(
+                "foo",
+                "bar",
+                "baz"
+        );
+        final List<List<? extends Number>> values = Arrays.asList(
+                Arrays.asList(5, 7, 10),
+                Arrays.asList(20, 12, 10)
+                // Arrays.asList(7, 9, 5)
+        );
+
+        ExcelChart excelChart = new ExcelChartDefault(ChartType.area, categories, values);
+        Workbook workbook = excelChart.createWorkbook();
+
+        // Write the output to a file
+        final FileOutputStream fileOut = new FileOutputStream("/Users/ionut/Downloads/test.xlsx");
+        workbook.write(fileOut);
+        fileOut.close();
+
     }
 
     private static Sheet createSheet(final Workbook wb, final String sheetName) {
@@ -76,7 +102,7 @@ public class Main {
 
         Chart chart = drawing.createChart(anchor);
         ChartLegend legend = chart.getOrCreateLegend();
-        legend.setPosition(LegendPosition.TOP_RIGHT);
+        legend.setPosition(LegendPosition.BOTTOM);
 
         return chart;
     }
@@ -87,13 +113,13 @@ public class Main {
 
         Chart chart = createChartAndLegend(sheet);
         CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
-        CustomChartData data = customChartDataFactory.createScatterChartData();
+        CustomChartData data = customChartDataFactory.createScatterChartData("chart title");
 
         ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
         ValueAxis leftAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
         leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
 
-        ChartDataSource<Number> xs = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
+        ChartDataSource<String> xs = DataSources.fromStringCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
         ChartDataSource<Number> ys1 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1, 1, 0, NUM_OF_COLUMNS - 1));
         ChartDataSource<Number> ys2 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(2, 2, 0, NUM_OF_COLUMNS - 1));
 
@@ -114,14 +140,14 @@ public class Main {
 
         Chart chart = createChartAndLegend(sheet);
         CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
-        CustomChartData data = customChartDataFactory.createLineChartData();
+        CustomChartData data = customChartDataFactory.createLineChartData("chart title");
 
         // Use a category axis for the bottom axis.
         ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
         ValueAxis leftAxis = chart.getChartAxisFactory().createValueAxis(AxisPosition.LEFT);
         leftAxis.setCrosses(AxisCrosses.AUTO_ZERO);
 
-        ChartDataSource<Number> xs = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
+        ChartDataSource<String> xs = DataSources.fromStringCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
         ChartDataSource<Number> ys1 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1, 1, 0, NUM_OF_COLUMNS - 1));
         ChartDataSource<Number> ys2 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(2, 2, 0, NUM_OF_COLUMNS - 1));
 
@@ -142,7 +168,7 @@ public class Main {
 
         Chart chart = createChartAndLegend(sheet);
         CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
-        CustomChartData data = customChartDataFactory.createBarChartData();
+        CustomChartData data = customChartDataFactory.createBarChartData("chart title");
 
         // Use a category axis for the bottom axis.
         ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
@@ -170,7 +196,7 @@ public class Main {
 
         Chart chart = createChartAndLegend(sheet);
         CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
-        CustomChartData data = customChartDataFactory.createAreaChartData();
+        CustomChartData data = customChartDataFactory.createAreaChartData("chart title");
 
         // Use a category axis for the bottom axis.
         ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);
@@ -180,7 +206,7 @@ public class Main {
         ChartDataSource<String> xs = DataSources.fromStringCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
         ChartDataSource<Number> ys1 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1, 1, 0, NUM_OF_COLUMNS - 1));
 
-        data.addSeries(xs, ys1);
+        data.addSeries("new series", xs, ys1);
 
         chart.plot(data, bottomAxis, leftAxis);
 
@@ -196,7 +222,7 @@ public class Main {
 
         Chart chart = createChartAndLegend(sheet);
         CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
-        CustomChartData data = customChartDataFactory.createPieChartData();
+        CustomChartData data = customChartDataFactory.createPieChartData("chart title");
 
         ChartDataSource<String> xs = DataSources.fromStringCellRange(sheet, new CellRangeAddress(0, 0, 0, NUM_OF_COLUMNS - 1));
         ChartDataSource<Number> ys1 = DataSources.fromNumericCellRange(sheet, new CellRangeAddress(1, 1, 0, NUM_OF_COLUMNS - 1));
@@ -216,7 +242,7 @@ public class Main {
 
         Chart chart = createChartAndLegend(sheet);
         CustomChartDataFactory customChartDataFactory = new CustomChartDataFactoryDefault();
-        CustomChartData data = customChartDataFactory.createStackedBarChartData();
+        CustomChartData data = customChartDataFactory.createStackedBarChartData("chart title");
 
         // Use a category axis for the bottom axis.
         ChartAxis bottomAxis = chart.getChartAxisFactory().createCategoryAxis(AxisPosition.BOTTOM);

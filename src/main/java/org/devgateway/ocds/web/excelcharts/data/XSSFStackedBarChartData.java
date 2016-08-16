@@ -16,6 +16,10 @@ import org.openxmlformats.schemas.drawingml.x2006.chart.STBarGrouping;
  * Holds data for a XSSF Stacked Bar Chart.
  */
 public class XSSFStackedBarChartData extends XSSFBarChartData {
+    public XSSFStackedBarChartData(final String title) {
+        super(title);
+    }
+
     @Override
     public void fillChart(final Chart chart, final ChartAxis... axis) {
         if (!(chart instanceof XSSFChart)) {
@@ -34,6 +38,8 @@ public class XSSFStackedBarChartData extends XSSFBarChartData {
 
         // set bars orientation
         barChart.addNewBarDir().setVal(STBarDir.COL);
+
+        xssfChart.setTitle(this.title);
 
         for (CustomChartSeries s : series) {
             s.addToChart(barChart);

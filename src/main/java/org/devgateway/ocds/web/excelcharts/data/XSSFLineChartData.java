@@ -24,8 +24,12 @@ import org.openxmlformats.schemas.drawingml.x2006.main.CTSRgbColor;
  * Holds data for a XSSF Line Chart.
  */
 public class XSSFLineChartData extends AbstractXSSFChartData {
+    public XSSFLineChartData(final String title) {
+        super(title);
+    }
+
     @Override
-    protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<?> categories,
+    protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<String> categories,
                                                final ChartDataSource<? extends Number> values) {
         return new AbstractSeries(id, order, categories, values) {
             @Override
@@ -70,6 +74,8 @@ public class XSSFLineChartData extends AbstractXSSFChartData {
         for (ChartAxis ax : axis) {
             lineChart.addNewAxId().setVal(ax.getId());
         }
+
+        xssfChart.setTitle(this.title);
 
         // add grid lines
         CTSRgbColor rgb = CTSRgbColor.Factory.newInstance();

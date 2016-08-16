@@ -12,30 +12,30 @@ public interface CustomChartDataFactory {
     /**
      * @return an appropriate ScatterChartData instance
      */
-    CustomChartData createScatterChartData();
+    CustomChartData createScatterChartData(final String title);
 
     /**
      * @return a LineChartData instance
      */
-    CustomChartData createLineChartData();
+    CustomChartData createLineChartData(final String title);
 
     /**
      * @return a AreaChartData instance
      */
-    CustomChartData createAreaChartData();
+    CustomChartData createAreaChartData(final String title);
 
     /**
      * @return a BarChartData instance
      */
-    CustomChartData createBarChartData();
+    CustomChartData createBarChartData(final String title);
 
     /**
      * @return a PieChartData instance
      */
-    CustomChartData createPieChartData();
+    CustomChartData createPieChartData(final String title);
 
     /**
      * @return a StackedBarChartData instance
      */
-    CustomChartData createStackedBarChartData();
+    CustomChartData createStackedBarChartData(final String title);
 }

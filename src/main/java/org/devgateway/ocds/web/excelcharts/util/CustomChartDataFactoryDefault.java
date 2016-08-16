@@ -17,47 +17,47 @@ public class CustomChartDataFactoryDefault implements CustomChartDataFactory {
      * @return new scatter charts data instance
      */
     @Override
-    public CustomChartData createScatterChartData() {
-        return new XSSFScatterChartData();
+    public CustomChartData createScatterChartData(final String title) {
+        return new XSSFScatterChartData(title);
     }
 
     /**
      * @return new line charts data instance
      */
     @Override
-    public CustomChartData createLineChartData() {
-        return new XSSFLineChartData();
+    public CustomChartData createLineChartData(final String title) {
+        return new XSSFLineChartData(title);
     }
 
     /**
      * @return new area charts data instance
      */
     @Override
-    public CustomChartData createAreaChartData() {
-        return new XSSFAreaChartData();
+    public CustomChartData createAreaChartData(final String title) {
+        return new XSSFAreaChartData(title);
     }
 
     /**
      * @return new bar charts data instance
      */
     @Override
-    public CustomChartData createBarChartData() {
-        return new XSSFBarChartData();
+    public CustomChartData createBarChartData(final String title) {
+        return new XSSFBarChartData(title);
     }
 
     /**
      * @return new pie charts data instance
      */
     @Override
-    public CustomChartData createPieChartData() {
-        return new XSSFPieChartData();
+    public CustomChartData createPieChartData(final String title) {
+        return new XSSFPieChartData(title);
     }
 
     /**
      * @return new stacked bar charts data instance
      */
     @Override
-    public CustomChartData createStackedBarChartData() {
-        return new XSSFStackedBarChartData();
+    public CustomChartData createStackedBarChartData(final String title) {
+        return new XSSFStackedBarChartData(title);
     }
 }

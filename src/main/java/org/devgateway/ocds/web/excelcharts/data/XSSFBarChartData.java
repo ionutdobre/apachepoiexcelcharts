@@ -21,8 +21,12 @@ import org.openxmlformats.schemas.drawingml.x2006.chart.STBarDir;
  * Holds data for a XSSF Bar Chart.
  */
 public class XSSFBarChartData extends AbstractXSSFChartData {
+    public XSSFBarChartData(final String title) {
+        super(title);
+    }
+
     @Override
-    protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<?> categories,
+    protected CustomChartSeries createNewSerie(final int id, final int order, final ChartDataSource<String> categories,
                                                final ChartDataSource<? extends Number> values) {
         return new AbstractSeries(id, order, categories, values) {
             @Override
@@ -60,6 +64,8 @@ public class XSSFBarChartData extends AbstractXSSFChartData {
 
         // set bars orientation
         barChart.addNewBarDir().setVal(STBarDir.COL);
+
+        xssfChart.setTitle(this.title);
 
         for (CustomChartSeries s : series) {
             s.addToChart(barChart);
