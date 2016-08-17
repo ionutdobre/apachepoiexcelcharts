@@ -37,17 +37,17 @@ public class XSSFLineChartData extends AbstractXSSFChartData {
                 CTLineChart ctLineChart = (CTLineChart) ctChart;
                 CTLineSer ctLineSer = ctLineChart.addNewSer();
 
-                ctLineSer.addNewIdx().setVal(id);
-                ctLineSer.addNewOrder().setVal(order);
+                ctLineSer.addNewIdx().setVal(this.id);
+                ctLineSer.addNewOrder().setVal(this.order);
 
                 // No marker symbol on the chart line.
                 ctLineSer.addNewMarker().addNewSymbol().setVal(STMarkerStyle.NONE);
 
                 CTAxDataSource catDS = ctLineSer.addNewCat();
-                XSSFChartUtil.buildAxDataSource(catDS, categories);
+                XSSFChartUtil.buildAxDataSource(catDS, this.categories);
 
                 CTNumDataSource valueDS = ctLineSer.addNewVal();
-                XSSFChartUtil.buildNumDataSource(valueDS, values);
+                XSSFChartUtil.buildNumDataSource(valueDS, this.values);
 
                 if (isTitleSet()) {
                     ctLineSer.setTx(getCTSerTx());

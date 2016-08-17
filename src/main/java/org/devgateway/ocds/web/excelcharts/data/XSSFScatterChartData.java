@@ -43,10 +43,10 @@ public class XSSFScatterChartData extends AbstractXSSFChartData {
                 scatterSer.addNewOrder().setVal(this.order);
 
                 CTAxDataSource catDS = scatterSer.addNewXVal();
-                XSSFChartUtil.buildAxDataSource(catDS, categories);
+                XSSFChartUtil.buildAxDataSource(catDS, this.categories);
 
                 CTNumDataSource valueDS = scatterSer.addNewYVal();
-                XSSFChartUtil.buildNumDataSource(valueDS, values);
+                XSSFChartUtil.buildNumDataSource(valueDS, this.values);
 
                 if (isTitleSet()) {
                     scatterSer.setTx(getCTSerTx());

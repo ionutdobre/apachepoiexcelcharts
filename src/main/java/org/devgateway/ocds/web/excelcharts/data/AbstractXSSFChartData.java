@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * @author idobre
  * @since 8/12/16
+ *
+ * General class for creating a CustomChartData object.
  */
 public abstract class AbstractXSSFChartData implements CustomChartData {
     /**

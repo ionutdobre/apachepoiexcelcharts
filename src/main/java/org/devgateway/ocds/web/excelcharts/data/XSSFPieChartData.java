@@ -33,14 +33,14 @@ public class XSSFPieChartData extends AbstractXSSFChartData {
                 CTPieChart ctPieChart = (CTPieChart) ctChart;
                 CTPieSer ctPieSer = ctPieChart.addNewSer();
 
-                ctPieSer.addNewIdx().setVal(id);
-                ctPieSer.addNewOrder().setVal(order);
+                ctPieSer.addNewIdx().setVal(this.id);
+                ctPieSer.addNewOrder().setVal(this.order);
 
                 CTAxDataSource catDS = ctPieSer.addNewCat();
-                XSSFChartUtil.buildAxDataSource(catDS, categories);
+                XSSFChartUtil.buildAxDataSource(catDS, this.categories);
 
                 CTNumDataSource valueDS = ctPieSer.addNewVal();
-                XSSFChartUtil.buildNumDataSource(valueDS, values);
+                XSSFChartUtil.buildNumDataSource(valueDS, this.values);
 
                 if (isTitleSet()) {
                     ctPieSer.setTx(getCTSerTx());

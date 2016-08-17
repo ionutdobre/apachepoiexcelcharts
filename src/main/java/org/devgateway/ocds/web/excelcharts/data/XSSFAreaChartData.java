@@ -33,14 +33,14 @@ public class XSSFAreaChartData extends AbstractXSSFChartData {
                 CTAreaChart ctAreaChart = (CTAreaChart) ctChart;
                 CTAreaSer ctAreaSer = ctAreaChart.addNewSer();
 
-                ctAreaSer.addNewIdx().setVal(id);
-                ctAreaSer.addNewOrder().setVal(order);
+                ctAreaSer.addNewIdx().setVal(this.id);
+                ctAreaSer.addNewOrder().setVal(this.order);
 
                 CTAxDataSource catDS = ctAreaSer.addNewCat();
-                XSSFChartUtil.buildAxDataSource(catDS, categories);
+                XSSFChartUtil.buildAxDataSource(catDS, this.categories);
 
                 CTNumDataSource valueDS = ctAreaSer.addNewVal();
-                XSSFChartUtil.buildNumDataSource(valueDS, values);
+                XSSFChartUtil.buildNumDataSource(valueDS, this.values);
 
                 if (isTitleSet()) {
                     ctAreaSer.setTx(getCTSerTx());

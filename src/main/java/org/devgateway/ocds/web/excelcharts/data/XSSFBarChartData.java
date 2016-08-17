@@ -34,14 +34,14 @@ public class XSSFBarChartData extends AbstractXSSFChartData {
                 CTBarChart ctBarChart = (CTBarChart) ctChart;
                 CTBarSer ctBarSer = ctBarChart.addNewSer();
 
-                ctBarSer.addNewIdx().setVal(id);
-                ctBarSer.addNewOrder().setVal(order);
+                ctBarSer.addNewIdx().setVal(this.id);
+                ctBarSer.addNewOrder().setVal(this.order);
 
                 CTAxDataSource catDS = ctBarSer.addNewCat();
-                XSSFChartUtil.buildAxDataSource(catDS, categories);
+                XSSFChartUtil.buildAxDataSource(catDS, this.categories);
 
                 CTNumDataSource valueDS = ctBarSer.addNewVal();
-                XSSFChartUtil.buildNumDataSource(valueDS, values);
+                XSSFChartUtil.buildNumDataSource(valueDS, this.values);
 
                 if (isTitleSet()) {
                     ctBarSer.setTx(getCTSerTx());
