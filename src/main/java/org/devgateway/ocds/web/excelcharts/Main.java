@@ -42,7 +42,7 @@ public class Main {
     }
 
     private static void createScatterChart() throws IOException {
-        final ExcelChart excelChart = new ExcelChartDefault(ChartType.scatter, categories, values);
+        final ExcelChart excelChart = new ExcelChartDefault("scatter chart", ChartType.scatter, categories, values);
         final Workbook workbook = excelChart.createWorkbook();
 
         // Write the output to a file
@@ -52,7 +52,12 @@ public class Main {
     }
 
     private static void createLineChart() throws IOException {
-        final ExcelChart excelChart = new ExcelChartDefault(ChartType.line, categories, values);
+        final ExcelChart excelChart = new ExcelChartDefault("line chart", ChartType.line, categories, values);
+        excelChart.configureSeriesTitle(
+                Arrays.asList(
+                        "foo",
+                        "bar"
+                ));
         final Workbook workbook = excelChart.createWorkbook();
 
         // Write the output to a file
@@ -62,7 +67,7 @@ public class Main {
     }
 
     private static void createBarChart() throws IOException {
-        final ExcelChart excelChart = new ExcelChartDefault(ChartType.bar, categories, values);
+        final ExcelChart excelChart = new ExcelChartDefault("bar chart", ChartType.bar, categories, values);
         final Workbook workbook = excelChart.createWorkbook();
 
         // Write the output to a file
@@ -72,7 +77,7 @@ public class Main {
     }
 
     private static void createAreaChartChart() throws IOException {
-        final ExcelChart excelChart = new ExcelChartDefault(ChartType.area, categories, values);
+        final ExcelChart excelChart = new ExcelChartDefault("area chart", ChartType.area, categories, values);
         final Workbook workbook = excelChart.createWorkbook();
 
         // Write the output to a file
@@ -82,7 +87,8 @@ public class Main {
     }
 
     private static void createPieChartChart() throws IOException {
-        final ExcelChart excelChart = new ExcelChartDefault(ChartType.pie, categories, values.subList(0, 1));
+        final ExcelChart excelChart = new ExcelChartDefault("pie chart", ChartType.pie,
+                categories, values.subList(0, 1));
         final Workbook workbook = excelChart.createWorkbook();
 
         // Write the output to a file
@@ -92,7 +98,7 @@ public class Main {
     }
 
     private static void createStackedBarChart() throws IOException {
-        final ExcelChart excelChart = new ExcelChartDefault(ChartType.stacked, categories, values);
+        final ExcelChart excelChart = new ExcelChartDefault("stacked chart", ChartType.stacked, categories, values);
         final Workbook workbook = excelChart.createWorkbook();
 
         // Write the output to a file
