@@ -82,7 +82,7 @@ public class Main {
     }
 
     private static void createPieChartChart() throws IOException {
-        final ExcelChart excelChart = new ExcelChartDefault(ChartType.pie, categories, values);
+        final ExcelChart excelChart = new ExcelChartDefault(ChartType.pie, categories, values.subList(0, 1));
         final Workbook workbook = excelChart.createWorkbook();
 
         // Write the output to a file
