@@ -1,20 +1,13 @@
 package org.devgateway.ocds.web.excelcharts;
 
 import org.apache.poi.ss.usermodel.Chart;
-import org.apache.poi.ss.usermodel.ClientAnchor;
-import org.apache.poi.ss.usermodel.Drawing;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.charts.AxisCrosses;
 import org.apache.poi.ss.usermodel.charts.AxisPosition;
 import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
-import org.apache.poi.ss.usermodel.charts.ChartLegend;
-import org.apache.poi.ss.usermodel.charts.DataSources;
-import org.apache.poi.ss.usermodel.charts.LegendPosition;
 import org.apache.poi.ss.usermodel.charts.ValueAxis;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.devgateway.ocds.web.excelcharts.util.CustomChartDataFactory;
 import org.devgateway.ocds.web.excelcharts.util.CustomChartDataFactoryDefault;
@@ -67,7 +60,6 @@ public class ExcelChartDefault implements ExcelChart {
 
         final ChartDataSource<String> categoryDataSource = excelChartSheet.getCategoryChartDataSource();
         final List<ChartDataSource<Number>> valuesDataSource = excelChartSheet.getValuesChartDataSource();
-
         for (ChartDataSource<Number> valueDataSource : valuesDataSource) {
             data.addSeries(categoryDataSource, valueDataSource);
         }
@@ -77,18 +69,17 @@ public class ExcelChartDefault implements ExcelChart {
         return workbook;
     }
 
-    private void addCategories(ExcelChartSheet excelChartSheet) {
+    private void addCategories(final ExcelChartSheet excelChartSheet) {
         final Row row = excelChartSheet.createRow();
         int coll = 0;
-        for(String category : categories) {
+        for (String category : categories) {
             excelChartSheet.writeCell(category, row, coll++);
         }
     }
 
-    private void addValues(ExcelChartSheet excelChartSheet) {
-        Row row;
-        for(List<? extends Number> value : values) {
-            row = excelChartSheet.createRow();
+    private void addValues(final ExcelChartSheet excelChartSheet) {
+        for (List<? extends Number> value : values) {
+            final Row row = excelChartSheet.createRow();
             int coll = 0;
             for (Number val : value) {
                 excelChartSheet.writeCell(val, row, coll++);

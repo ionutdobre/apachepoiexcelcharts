@@ -31,23 +31,21 @@ import java.util.Set;
  * @since 8/16/16
  */
 public final class ExcelChartSheetDefault implements ExcelChartSheet {
-    private final Workbook workbook;
+    public static final int DATAFONTHEIGHT = 12;
+
+    public static final int HEADERFONTHEIGHT = 14;
+
+    public static final int ROWHEADERHEIGHT = 800;
+
+    public static final int ROWHEIGHT = 600;
 
     private final Sheet excelSheet;
-
-    private Font dataFont;
-
-    private Font headerFont;
 
     private final CellStyle dataStyleCell;
 
     private final CellStyle headerStyleCell;
 
-    // declare only one cell object reference
-    private Cell cell;
-
     public ExcelChartSheetDefault(final Workbook workbook, final String excelSheetName) {
-        this.workbook = workbook;
         this.excelSheet = workbook.createSheet(excelSheetName);
         // this.excelSheet.setColumnWidth(0, 5000); - TODO
 
@@ -57,39 +55,33 @@ public final class ExcelChartSheetDefault implements ExcelChartSheet {
             this.headerStyleCell = workbook.getCellStyleAt((short) 2);
         } else {
             // init the fonts and styles
-            this.dataFont = this.workbook.createFont();
-            this.dataFont.setFontHeightInPoints((short) 12);
-            this.dataFont.setFontName("Times New Roman");
-            this.dataFont.setColor(HSSFColor.BLACK.index);
+            final Font dataFont = workbook.createFont();
+            dataFont.setFontHeightInPoints((short) DATAFONTHEIGHT);
+            dataFont.setFontName("Times New Roman");
+            dataFont.setColor(HSSFColor.BLACK.index);
 
-            this.headerFont = this.workbook.createFont();
-            this.headerFont.setFontHeightInPoints((short) 14);
-            this.headerFont.setFontName("Times New Roman");
-            this.headerFont.setColor(HSSFColor.BLACK.index);
-            this.headerFont.setBold(true);
+            final Font headerFont = workbook.createFont();
+            headerFont.setFontHeightInPoints((short) HEADERFONTHEIGHT);
+            headerFont.setFontName("Times New Roman");
+            headerFont.setColor(HSSFColor.BLACK.index);
+            headerFont.setBold(true);
 
-            this.dataStyleCell = this.workbook.createCellStyle();
+            this.dataStyleCell = workbook.createCellStyle();
             this.dataStyleCell.setAlignment(CellStyle.ALIGN_LEFT);
             this.dataStyleCell.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
             this.dataStyleCell.setWrapText(true);
-            this.dataStyleCell.setFont(this.dataFont);
+            this.dataStyleCell.setFont(dataFont);
 
-            this.headerStyleCell = this.workbook.createCellStyle();
+            this.headerStyleCell = workbook.createCellStyle();
             this.headerStyleCell.setAlignment(CellStyle.ALIGN_CENTER);
             this.headerStyleCell.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
             this.headerStyleCell.setWrapText(true);
-            this.headerStyleCell.setFont(this.headerFont);
+            this.headerStyleCell.setFont(headerFont);
         }
     }
 
     /**
-     * Creates a cell and tries to determine it's type based on the value type
-     *
-     * there is only one Cell object otherwise the Heap Space will fill really quickly
-     *
-     * @param value
-     * @param row
-     * @param column
+     * Creates a cell and tries to determine it's type based on the value type.
      */
     @Override
     public void writeCell(final Object value, final Row row, final int column) {
@@ -98,6 +90,7 @@ public final class ExcelChartSheetDefault implements ExcelChartSheet {
         //      * don't create any cell if the value is null (Cell.CELL_TYPE_BLANK)
         //      * do nothing if we have an empty List/Set instead of display empty brackets like []
         if (value != null && !((value instanceof List || value instanceof Set) && ((Collection) value).isEmpty())) {
+            final Cell cell;
             if (value instanceof String) {
                 cell = row.createCell(column, Cell.CELL_TYPE_STRING);
                 cell.setCellValue((String) value);
@@ -108,15 +101,14 @@ public final class ExcelChartSheetDefault implements ExcelChartSheet {
                 } else {
                     if (value instanceof BigDecimal) {
                         cell = row.createCell(column, Cell.CELL_TYPE_NUMERIC);
-                        cell.setCellValue(((BigDecimal) value).doubleValue());
+                        cell.setCellValue(((Number) value).doubleValue());
                     } else {
                         if (value instanceof Boolean) {
                             cell = row.createCell(column, Cell.CELL_TYPE_BOOLEAN);
                             cell.setCellValue(((Boolean) value) ? "Yes" : "No");
                         } else {
                             if (value instanceof Date) {
-                                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-
+                                final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                                 cell = row.createCell(column, Cell.CELL_TYPE_STRING);
                                 cell.setCellValue(sdf.format((Date) value));
                             } else {
@@ -143,16 +135,17 @@ public final class ExcelChartSheetDefault implements ExcelChartSheet {
     /**
      * Create a new row and set the default height (different heights for headers and data rows)
      *
-     * @param rowNumber
+     * @param rowNumber - creates a new row at line rowNumber
      * @return Row
      */
+    @Override
     public Row createRow(final int rowNumber) {
-        Row row = excelSheet.createRow(rowNumber);
+        final Row row = excelSheet.createRow(rowNumber);
 
         if (rowNumber < 1) {
-            row.setHeight((short) 800);             // 40px (800 / 10 / 2)
+            row.setHeight((short) ROWHEADERHEIGHT);             // 40px (800 / 10 / 2)
         } else {
-            row.setHeight((short) 600);             // 30px (600 / 10 / 2)
+            row.setHeight((short) ROWHEIGHT);             // 30px (600 / 10 / 2)
         }
 
         return row;
@@ -162,6 +155,7 @@ public final class ExcelChartSheetDefault implements ExcelChartSheet {
      * Create a new row and return it. Since the rows in the sheet are 0-based we can use
      * {@link Sheet#getPhysicalNumberOfRows} to get the new free row
      */
+    @Override
     public Row createRow() {
         return createRow(excelSheet.getPhysicalNumberOfRows());
     }
@@ -169,6 +163,7 @@ public final class ExcelChartSheetDefault implements ExcelChartSheet {
     /**
      * Creates a chart and also attaches a legend to it.
      */
+    @Override
     public Chart createChartAndLegend() {
         final Drawing drawing = excelSheet.createDrawingPatriarch();
         final ClientAnchor anchor = drawing.createAnchor(0, 0, 0, 0, 0, 5, 15, 20);
@@ -182,28 +177,38 @@ public final class ExcelChartSheetDefault implements ExcelChartSheet {
 
     @Override
     public ChartDataSource<String> getCategoryChartDataSource() {
+        if (excelSheet.getRow(0) == null) {
+            throw new IllegalStateException("It seems that we don't have any category in the excel file");
+        }
         return getChartDataSource(0);      // categories should always be on the first row
     }
 
     @Override
     public List<ChartDataSource<Number>> getValuesChartDataSource() {
+        if (excelSheet.getPhysicalNumberOfRows() <= 1) {
+            throw new IllegalStateException("It seems that we don't have any values in the excel file");
+        }
+
         final List<ChartDataSource<Number>> valuesDataSource = new ArrayList<>();
 
         // values should always be after the first row (rows are 0-based)
-        for(int i = 1; i < excelSheet.getPhysicalNumberOfRows(); i++) {
+        for (int i = 1; i < excelSheet.getPhysicalNumberOfRows(); i++) {
             valuesDataSource.add(getChartDataSource(i));
         }
 
         return valuesDataSource;
     }
 
-    private ChartDataSource getChartDataSource(int row) {
+    private ChartDataSource getChartDataSource(final int row) {
         final int lastCellNum = excelSheet.getRow(row).getLastCellNum() - 1;
         final CellRangeAddress cellRangeAddress = new CellRangeAddress(row, row, 0, lastCellNum);
+        final ChartDataSource chartDataSource;
         if (row == 0) {
-            return DataSources.fromStringCellRange(excelSheet, cellRangeAddress);
+            chartDataSource = DataSources.fromStringCellRange(excelSheet, cellRangeAddress);
         } else {
-            return DataSources.fromNumericCellRange(excelSheet, cellRangeAddress);
+            chartDataSource = DataSources.fromNumericCellRange(excelSheet, cellRangeAddress);
         }
+
+        return chartDataSource;
     }
 }

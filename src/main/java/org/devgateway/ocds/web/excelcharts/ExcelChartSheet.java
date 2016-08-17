@@ -21,7 +21,7 @@ public interface ExcelChartSheet {
 
     Chart createChartAndLegend();
 
-    ChartDataSource<String> getCategoryChartDataSource();
+    ChartDataSource getCategoryChartDataSource();
 
     List<ChartDataSource<Number>> getValuesChartDataSource();
 }
