@@ -69,20 +69,6 @@ public class XSSFBubbleChartData extends AbstractXSSFChartData {
         }
 
         xssfChart.setTitle(this.title);
-
-        // add grid lines
-        final CTSRgbColor rgb = CTSRgbColor.Factory.newInstance();
-        rgb.setVal(new byte[]{(byte) 0, (byte) 0, (byte) 0});
-
-        // CTCatAx[] ctCatAx = plotArea.getCatAxArray();
-        // if (ctCatAx.length != 0) {
-        //     ctCatAx[0].addNewMajorGridlines().addNewSpPr().addNewSolidFill().setSrgbClr(rgb);
-        // }
-        //
-        // CTValAx[] ctValAx = plotArea.getValAxArray();
-        // if (ctValAx.length != 0) {
-        //     ctValAx[0].addNewMajorGridlines().addNewSpPr().addNewSolidFill().setSrgbClr(rgb);
-        // }
     }
 }
 
