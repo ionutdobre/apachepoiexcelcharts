@@ -101,7 +101,7 @@ public class Main {
     }
 
     private static void createStackedBarChart() throws IOException {
-        final ExcelChart excelChart = new ExcelChartDefault("stacked chart", ChartType.stacked, categories, values);
+        final ExcelChart excelChart = new ExcelChartDefault("stacked chart", ChartType.stackedcol, categories, values);
         final Workbook workbook = excelChart.createWorkbook();
 
         // Write the output to a file
