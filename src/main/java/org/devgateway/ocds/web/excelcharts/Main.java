@@ -12,13 +12,14 @@ import java.util.List;
  * @since 8/8/16
  */
 public class Main {
-    private static final List<String> categories = Arrays.asList(
+    private static final List<?> categories = Arrays.asList(
             "cat 1",
             "cat 2",
             "cat 3",
             "cat 4",
             "cat 5"
     );
+
     private static final List<List<? extends Number>> values = Arrays.asList(
             Arrays.asList(5, 7, 10, 12, 6),
             Arrays.asList(20, 12, 10, 5, 14)

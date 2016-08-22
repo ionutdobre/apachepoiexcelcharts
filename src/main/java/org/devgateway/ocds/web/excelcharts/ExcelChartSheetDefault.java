@@ -98,7 +98,7 @@ public final class ExcelChartSheetDefault implements ExcelChartSheet {
                     cell = row.createCell(column, Cell.CELL_TYPE_NUMERIC);
                     cell.setCellValue((Integer) value);
                 } else {
-                    if (value instanceof BigDecimal) {
+                    if (value instanceof Number) {
                         cell = row.createCell(column, Cell.CELL_TYPE_NUMERIC);
                         cell.setCellValue(((Number) value).doubleValue());
                     } else {
@@ -183,7 +183,7 @@ public final class ExcelChartSheetDefault implements ExcelChartSheet {
      * Returns a ChartDataSource with the categories. Categories should be on the first row of the excel sheet
      */
     @Override
-    public ChartDataSource<String> getCategoryChartDataSource() {
+    public ChartDataSource<?> getCategoryChartDataSource() {
         if (excelSheet.getRow(0) == null) {
             throw new IllegalStateException("It seems that we don't have any category in the excel file");
         }
