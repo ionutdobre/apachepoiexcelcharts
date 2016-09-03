@@ -1,31 +1,28 @@
-package org.devgateway.ocds.web.excelcharts.data;
+package org.devgateway.toolkit.web.excelcharts.data;
 
 import org.apache.poi.ss.usermodel.Chart;
 import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.xssf.usermodel.XSSFChart;
 import org.apache.xmlbeans.XmlObject;
-import org.devgateway.ocds.web.excelcharts.CustomChartSeries;
-import org.devgateway.ocds.web.excelcharts.util.XSSFChartUtil;
+import org.devgateway.toolkit.web.excelcharts.CustomChartSeries;
+import org.devgateway.toolkit.web.excelcharts.util.XSSFChartUtil;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTAreaChart;
+import org.openxmlformats.schemas.drawingml.x2006.chart.CTAreaSer;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTAxDataSource;
-import org.openxmlformats.schemas.drawingml.x2006.chart.CTBarChart;
-import org.openxmlformats.schemas.drawingml.x2006.chart.CTBarSer;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTNumDataSource;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTPlotArea;
 import org.openxmlformats.schemas.drawingml.x2006.chart.CTValAx;
-import org.openxmlformats.schemas.drawingml.x2006.chart.STBarDir;
 import org.openxmlformats.schemas.drawingml.x2006.chart.STCrossBetween;
 
 /**
  * @author idobre
  * @since 8/8/16
  *
- * Holds data for a XSSF Bar Chart.
+ * Holds data for a XSSF Area Chart.
  */
-public class XSSFBarChartData extends AbstractXSSFChartData {
-    protected STBarDir.Enum barDir = STBarDir.COL;
-
-    public XSSFBarChartData(final String title) {
+public class XSSFAreaChartData extends AbstractXSSFChartData {
+    public XSSFAreaChartData(final String title) {
         super(title);
     }
 
@@ -35,20 +32,20 @@ public class XSSFBarChartData extends AbstractXSSFChartData {
         return new AbstractSeries(id, order, categories, values) {
             @Override
             public void addToChart(final XmlObject ctChart) {
-                final CTBarChart ctBarChart = (CTBarChart) ctChart;
-                final CTBarSer ctBarSer = ctBarChart.addNewSer();
+                final CTAreaChart ctAreaChart = (CTAreaChart) ctChart;
+                final CTAreaSer ctAreaSer = ctAreaChart.addNewSer();
 
-                ctBarSer.addNewIdx().setVal(this.id);
-                ctBarSer.addNewOrder().setVal(this.order);
+                ctAreaSer.addNewIdx().setVal(this.id);
+                ctAreaSer.addNewOrder().setVal(this.order);
 
-                final CTAxDataSource catDS = ctBarSer.addNewCat();
+                final CTAxDataSource catDS = ctAreaSer.addNewCat();
                 XSSFChartUtil.buildAxDataSource(catDS, this.categories);
 
-                final CTNumDataSource valueDS = ctBarSer.addNewVal();
+                final CTNumDataSource valueDS = ctAreaSer.addNewVal();
                 XSSFChartUtil.buildNumDataSource(valueDS, this.values);
 
                 if (isTitleSet()) {
-                    ctBarSer.setTx(getCTSerTx());
+                    ctAreaSer.setTx(getCTSerTx());
                 }
             }
         };
@@ -62,12 +59,8 @@ public class XSSFBarChartData extends AbstractXSSFChartData {
 
         final XSSFChart xssfChart = (XSSFChart) chart;
         final CTPlotArea plotArea = xssfChart.getCTChart().getPlotArea();
-        final CTBarChart barChart = plotArea.addNewBarChart();
-
-        barChart.addNewVaryColors().setVal(false);
-
-        // set bars orientation
-        barChart.addNewBarDir().setVal(barDir);
+        final CTAreaChart areChart = plotArea.addNewAreaChart();
+        areChart.addNewVaryColors().setVal(false);
 
         xssfChart.setTitle(this.title);
 
@@ -78,15 +71,11 @@ public class XSSFBarChartData extends AbstractXSSFChartData {
         }
 
         for (CustomChartSeries s : series) {
-            s.addToChart(barChart);
+            s.addToChart(areChart);
         }
 
         for (ChartAxis ax : axis) {
-            barChart.addNewAxId().setVal(ax.getId());
+            areChart.addNewAxId().setVal(ax.getId());
         }
-    }
-
-    public void setBarDir(final STBarDir.Enum barDir) {
-        this.barDir = barDir;
     }
 }

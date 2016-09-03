@@ -1,17 +1,16 @@
-package org.devgateway.ocds.web.excelcharts;
+package org.devgateway.toolkit.web.excelcharts;
 
 import org.apache.poi.ss.usermodel.Chart;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.charts.AxisCrosses;
 import org.apache.poi.ss.usermodel.charts.AxisPosition;
-import org.apache.poi.ss.usermodel.charts.AxisTickMark;
 import org.apache.poi.ss.usermodel.charts.ChartAxis;
 import org.apache.poi.ss.usermodel.charts.ChartDataSource;
 import org.apache.poi.ss.usermodel.charts.ValueAxis;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.devgateway.ocds.web.excelcharts.util.CustomChartDataFactory;
-import org.devgateway.ocds.web.excelcharts.util.CustomChartDataFactoryDefault;
+import org.devgateway.toolkit.web.excelcharts.util.CustomChartDataFactory;
+import org.devgateway.toolkit.web.excelcharts.util.CustomChartDataFactoryDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +33,8 @@ public class ExcelChartDefault implements ExcelChart {
     private final Workbook workbook;
 
     private final List<String> seriesTitle;
+
+    private static final int COLUMNWIDTH = 3500;
 
     public ExcelChartDefault(final String title,
                              final ChartType type,
@@ -106,7 +107,7 @@ public class ExcelChartDefault implements ExcelChart {
         int coll = 0;
         for (Object category : categories) {
             excelChartSheet.writeCell(category, row, coll);
-            excelChartSheet.setColumnWidth(coll, 3500);
+            excelChartSheet.setColumnWidth(coll, COLUMNWIDTH);
             coll++;
         }
     }

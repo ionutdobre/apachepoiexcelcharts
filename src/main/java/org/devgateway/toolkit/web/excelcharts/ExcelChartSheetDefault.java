@@ -1,4 +1,4 @@
-package org.devgateway.ocds.web.excelcharts;
+package org.devgateway.toolkit.web.excelcharts;
 
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,7 +16,6 @@ import org.apache.poi.ss.usermodel.charts.DataSources;
 import org.apache.poi.ss.usermodel.charts.LegendPosition;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
